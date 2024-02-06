@@ -10,11 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FoodPlanner"
+        android:theme="@style/Theme.Main"
         tools:targetApi="31" >
         <activity
-            android:name=".HomeActivity.HomeActivity"
-            android:exported="false" />
+            android:name=".MasterActivity.MasterActivity"
+            android:exported="false"
+            android:theme="@style/FullScreen"/>
         <activity
             android:name=".SplashActivity.SplashScreen"
             android:exported="true"

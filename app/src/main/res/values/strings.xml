@@ -16,4 +16,9 @@
     <string name="create_account">Create Account</string>
     <string name="create_password">Create password</string>
     <string name="Guest">Continue as Guest</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="search">Search</string>
+    <string name="plan">Plan</string>
+    <string name="account">Account</string>
 </resources>

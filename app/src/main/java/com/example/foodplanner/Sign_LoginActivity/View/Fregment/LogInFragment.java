@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.foodplanner.HomeActivity.HomeActivity;
+import com.example.foodplanner.MasterActivity.MasterActivity;
 import com.example.foodplanner.R;
 
 
@@ -36,7 +36,7 @@ public class LogInFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         guest = view.findViewById(R.id.guestBtn);
         guest.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), HomeActivity.class);
+            Intent intent = new Intent(view.getContext(), MasterActivity.class);
             startActivity(intent);
         });
     }
