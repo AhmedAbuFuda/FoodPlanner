@@ -28,4 +28,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="mainText">
+        <item name="android:textColor">@color/mainText</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

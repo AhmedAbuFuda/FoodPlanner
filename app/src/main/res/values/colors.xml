@@ -7,4 +7,5 @@
     <color name="dark_main">#FF8C00</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#ff0187</color>
+    <color name="mainText">#212121</color>
 </resources>

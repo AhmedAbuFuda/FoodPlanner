@@ -10,14 +10,6 @@
         app:labelVisibilityMode = "selected"
         />
     <item
-        android:id="@+id/favorite"
-        android:enabled="true"
-        android:icon="@drawable/favorite"
-        android:title="@string/favorite"
-        app:itemIconTint = "@color/mainColor"
-        app:itemTextColor = "@color/mainColor"
-        app:labelVisibilityMode = "selected"/>
-    <item
         android:id="@+id/search"
         android:enabled="true"
         android:icon="@drawable/search"
@@ -25,6 +17,7 @@
         app:itemIconTint = "@color/mainColor"
         app:itemTextColor = "@color/mainColor"
         app:labelVisibilityMode = "selected"/>
+
     <item
         android:id="@+id/plan"
         android:enabled="true"
@@ -33,6 +26,16 @@
         app:itemIconTint = "@color/mainColor"
         app:itemTextColor = "@color/mainColor"
         app:labelVisibilityMode = "selected"/>
+
+    <item
+        android:id="@+id/favorite"
+        android:enabled="true"
+        android:icon="@drawable/favorite"
+        android:title="@string/favorite"
+        app:itemIconTint = "@color/mainColor"
+        app:itemTextColor = "@color/mainColor"
+        app:labelVisibilityMode = "selected"/>
+
     <item
         android:id="@+id/account"
         android:enabled="true"
