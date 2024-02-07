@@ -2,6 +2,7 @@ package com.example.foodplanner.Network;
 
 import android.util.Log;
 
+import com.example.foodplanner.Models.CategoryResponse;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Models.MealResponses;
 
@@ -35,8 +36,8 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
 
     @Override
     public void makeNetworkCall(NetworkCallBack networkCallback) {
-        Call<MealResponses> call = services.getMealsByRandom();
-        call.enqueue(new Callback<MealResponses>() {
+        Call<MealResponses> getRandom = services.getMealsByRandom();
+        getRandom.enqueue(new Callback<MealResponses>() {
             @Override
             public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
                 networkCallback.onSuccessMeal(response.body().meals);
@@ -45,6 +46,20 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
 
             @Override
             public void onFailure(Call<MealResponses> call, Throwable t) {
+                networkCallback.onFailure(t.getMessage());
+                Log.i("TAG", "OnFailure: "+t.getMessage());
+            }
+        });
+
+        Call<CategoryResponse> getCategory = services.getAllCategories();
+        getCategory.enqueue(new Callback<CategoryResponse>() {
+            @Override
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+                networkCallback.onSuccessAllCategory(response.body().categories);
+            }
+
+            @Override
+            public void onFailure(Call<CategoryResponse> call, Throwable t) {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }

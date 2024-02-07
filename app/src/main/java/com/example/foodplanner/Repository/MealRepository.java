@@ -4,4 +4,6 @@ import com.example.foodplanner.Network.NetworkCallBack;
 
 public interface MealRepository {
     void getRandomMeal(NetworkCallBack networkCallBack);
+
+
 }

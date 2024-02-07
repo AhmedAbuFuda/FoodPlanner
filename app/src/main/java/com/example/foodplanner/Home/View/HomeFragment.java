@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Home.Presenter.HomePresenter;
 import com.example.foodplanner.Home.Presenter.HomePresenterImp;
+import com.example.foodplanner.Models.Category;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Network.MealRemoteDataSourceImp;
 import com.example.foodplanner.R;
@@ -30,6 +33,9 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     TextView nameOfDailyMeal;
     private Meal randomMeal;
     HomePresenter presenter;
+    private CategoryAdapter adapter;
+    LinearLayoutManager linearLayoutManager;
+    RecyclerView categoryRecyclerView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +70,11 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     }
 
     @Override
+    public void showCategories(ArrayList<Category> categories) {
+        adapter.setDataSource(categories);
+    }
+
+    @Override
     public void showErrMsg(String error) {
         Log.i("TAG", "showErrMsg: "+error);
     }
@@ -72,5 +83,11 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         dailyMealImage = view.findViewById(R.id.dailyMealImage);
         nameOfDailyMeal = view.findViewById(R.id.nameOfDailyMeal);
         newMeal = view.findViewById(R.id.newMeal);
+        categoryRecyclerView = view.findViewById(R.id.categoriesRV);
+        adapter = new CategoryAdapter(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        categoryRecyclerView.setLayoutManager(linearLayoutManager);
+        categoryRecyclerView.setAdapter(adapter);
     }
 }
