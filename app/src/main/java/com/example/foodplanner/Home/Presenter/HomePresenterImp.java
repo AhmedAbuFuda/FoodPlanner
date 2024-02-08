@@ -2,6 +2,7 @@ package com.example.foodplanner.Home.Presenter;
 
 import com.example.foodplanner.Home.View.HomeMealsView;
 import com.example.foodplanner.Models.Category;
+import com.example.foodplanner.Models.Ingredient;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Network.NetworkCallBack;
 import com.example.foodplanner.Repository.MealRepositoryImp;
@@ -30,6 +31,11 @@ public class HomePresenterImp implements HomePresenter, NetworkCallBack{
     @Override
     public void onSuccessAllCategory(ArrayList<Category> categories) {
         view.showCategories(categories);
+    }
+
+    @Override
+    public void onSuccessAllIngredients(ArrayList<Ingredient> ingredients) {
+        view.showIngredient(ingredients);
     }
 
     @Override

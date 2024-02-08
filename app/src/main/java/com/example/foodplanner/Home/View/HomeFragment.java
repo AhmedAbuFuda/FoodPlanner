@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.Home.Presenter.HomePresenter;
 import com.example.foodplanner.Home.Presenter.HomePresenterImp;
 import com.example.foodplanner.Models.Category;
+import com.example.foodplanner.Models.Ingredient;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Network.MealRemoteDataSourceImp;
 import com.example.foodplanner.R;
@@ -33,9 +34,10 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     TextView nameOfDailyMeal;
     private Meal randomMeal;
     HomePresenter presenter;
-    private CategoryAdapter adapter;
-    LinearLayoutManager linearLayoutManager;
-    RecyclerView categoryRecyclerView;
+    private CategoryAdapter categoryAdapter;
+    private IngredientAdapter ingredientAdapter;
+    LinearLayoutManager linearLayoutManager, linearLayoutManager2;
+    RecyclerView categoryRecyclerView, ingredientRecyclerView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,12 @@ public class HomeFragment extends Fragment implements HomeMealsView {
 
     @Override
     public void showCategories(ArrayList<Category> categories) {
-        adapter.setDataSource(categories);
+        categoryAdapter.setDataSource(categories);
+    }
+
+    @Override
+    public void showIngredient(ArrayList<Ingredient> ingredients) {
+        ingredientAdapter.setDataSource(ingredients);
     }
 
     @Override
@@ -84,10 +91,16 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         nameOfDailyMeal = view.findViewById(R.id.nameOfDailyMeal);
         newMeal = view.findViewById(R.id.newMeal);
         categoryRecyclerView = view.findViewById(R.id.categoriesRV);
-        adapter = new CategoryAdapter(getContext());
+        ingredientRecyclerView = view.findViewById(R.id.ingredientRV);
+        categoryAdapter = new CategoryAdapter(getContext());
+        ingredientAdapter = new IngredientAdapter(getContext());
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(linearLayoutManager);
-        categoryRecyclerView.setAdapter(adapter);
+        categoryRecyclerView.setAdapter(categoryAdapter);
+        linearLayoutManager2 = new LinearLayoutManager(getContext());
+        linearLayoutManager2.setOrientation(RecyclerView.HORIZONTAL);
+        ingredientRecyclerView.setLayoutManager(linearLayoutManager2);
+        ingredientRecyclerView.setAdapter(ingredientAdapter);
     }
 }

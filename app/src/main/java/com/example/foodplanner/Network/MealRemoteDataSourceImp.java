@@ -3,6 +3,7 @@ package com.example.foodplanner.Network;
 import android.util.Log;
 
 import com.example.foodplanner.Models.CategoryResponse;
+import com.example.foodplanner.Models.IngredientResponse;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Models.MealResponses;
 
@@ -41,7 +42,6 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
             @Override
             public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
                 networkCallback.onSuccessMeal(response.body().meals);
-                Log.i("TAG", "OnFailure: "+response.body().meals.size());
             }
 
             @Override
@@ -60,6 +60,21 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
 
             @Override
             public void onFailure(Call<CategoryResponse> call, Throwable t) {
+                networkCallback.onFailure(t.getMessage());
+                Log.i("TAG", "OnFailure: "+t.getMessage());
+            }
+        });
+
+        Call<IngredientResponse> getIngredients = services.getAllIngredients();
+        getIngredients.enqueue(new Callback<IngredientResponse>() {
+            @Override
+            public void onResponse(Call<IngredientResponse> call, Response<IngredientResponse> response) {
+                networkCallback.onSuccessAllIngredients(response.body().meals);
+                Log.i("TAG", "onResponse: "+response.body().meals);
+            }
+
+            @Override
+            public void onFailure(Call<IngredientResponse> call, Throwable t) {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }
