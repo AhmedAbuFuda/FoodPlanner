@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     layout_height=""
     layout_width=""
-
     android:layout_width="170dp"
     android:layout_height="250dp"
     android:layout_margin="10dp"
     android:clipToPadding="true"
     app:cardCornerRadius="20dp"
-    app:cardElevation="40dp">
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

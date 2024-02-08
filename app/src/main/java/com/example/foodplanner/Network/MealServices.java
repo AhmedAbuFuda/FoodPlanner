@@ -1,6 +1,7 @@
 package com.example.foodplanner.Network;
 
 import com.example.foodplanner.Models.CategoryResponse;
+import com.example.foodplanner.Models.CountryResponse;
 import com.example.foodplanner.Models.IngredientResponse;
 import com.example.foodplanner.Models.MealResponses;
 
@@ -14,5 +15,7 @@ public interface MealServices {
     Call<CategoryResponse> getAllCategories();
     @GET("api/json/v1/1/list.php?i=list")
     Call<IngredientResponse> getAllIngredients();
+    @GET("api/json/v1/1/list.php?a=list")
+    Call<CountryResponse> getAllCountries();
 
 }

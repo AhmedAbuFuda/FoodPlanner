@@ -19,4 +19,35 @@
     <string name="search">Search</string>
     <string name="plan">Plan</string>
     <string name="account">Account</string>
+
+    <string-array name="area">
+        <item>US</item>
+        <item>GB</item>
+        <item>CA</item>
+        <item>CN</item>
+        <item>HR</item>
+        <item>NL</item>
+        <item>EG</item>
+        <item>PH</item>
+        <item>FR</item>
+        <item>GR</item>
+        <item>IN</item>
+        <item>IE</item>
+        <item>IT</item>
+        <item>JM</item>
+        <item>JP</item>
+        <item>KE</item>
+        <item>MY</item>
+        <item>MX</item>
+        <item>MA</item>
+        <item>PL</item>
+        <item>PT</item>
+        <item>RU</item>
+        <item>ES</item>
+        <item>TH</item>
+        <item>TN</item>
+        <item>TR</item>
+        <item>FM</item>
+        <item>VN</item>
+    </string-array>
 </resources>

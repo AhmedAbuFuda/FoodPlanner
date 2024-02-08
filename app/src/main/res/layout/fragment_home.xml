@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Home.View.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,41 +26,28 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_end="25dp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="25dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="25dp" />
-
         <TextView
             android:id="@+id/dailyTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             style="@style/mainText"
             android:text="Daily Inspiration"
-            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/topGuideline" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_marginHorizontal="50dp"
             android:layout_marginVertical="25dp"
+            android:background="@color/white"
             android:clipToPadding="true"
             app:cardCornerRadius="20dp"
             app:cardElevation="40dp"
-            app:layout_constraintEnd_toEndOf="@id/rightGuideline"
-            app:layout_constraintStart_toEndOf="@id/leftGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dailyTextView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -121,19 +109,20 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
             android:text="Categories"
-            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoriesRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="25dp"
+            android:paddingHorizontal="25dp"
             android:layout_marginVertical="20dp"
             android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-            app:layout_constraintStart_toEndOf="@+id/leftGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
@@ -142,19 +131,20 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
             android:text="Ingredients"
-            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categoriesRV" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredientRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="25dp"
+            android:paddingHorizontal="25dp"
             android:layout_marginVertical="20dp"
             android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-            app:layout_constraintStart_toEndOf="@+id/leftGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
@@ -163,20 +153,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
             android:text="Area"
-            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ingredientRV" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/areaRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="25dp"
+            android:paddingHorizontal="25dp"
             android:layout_marginVertical="20dp"
             android:background="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
-            app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-            app:layout_constraintStart_toEndOf="@+id/leftGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 

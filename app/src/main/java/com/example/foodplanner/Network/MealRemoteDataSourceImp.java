@@ -3,6 +3,7 @@ package com.example.foodplanner.Network;
 import android.util.Log;
 
 import com.example.foodplanner.Models.CategoryResponse;
+import com.example.foodplanner.Models.CountryResponse;
 import com.example.foodplanner.Models.IngredientResponse;
 import com.example.foodplanner.Models.MealResponses;
 
@@ -74,6 +75,20 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
 
             @Override
             public void onFailure(Call<IngredientResponse> call, Throwable t) {
+                networkCallback.onFailure(t.getMessage());
+                Log.i("TAG", "OnFailure: "+t.getMessage());
+            }
+        });
+
+        Call<CountryResponse> getCountries = services.getAllCountries();
+        getCountries.enqueue(new Callback<CountryResponse>() {
+            @Override
+            public void onResponse(Call<CountryResponse> call, Response<CountryResponse> response) {
+                networkCallback.onSuccessAllCountries(response.body().meals);
+            }
+
+            @Override
+            public void onFailure(Call<CountryResponse> call, Throwable t) {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }

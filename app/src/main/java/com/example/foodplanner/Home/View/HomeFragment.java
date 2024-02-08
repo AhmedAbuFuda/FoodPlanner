@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.Home.Presenter.HomePresenter;
 import com.example.foodplanner.Home.Presenter.HomePresenterImp;
 import com.example.foodplanner.Models.Category;
+import com.example.foodplanner.Models.Country;
 import com.example.foodplanner.Models.Ingredient;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Network.MealRemoteDataSourceImp;
@@ -36,8 +37,9 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     HomePresenter presenter;
     private CategoryAdapter categoryAdapter;
     private IngredientAdapter ingredientAdapter;
-    LinearLayoutManager linearLayoutManager, linearLayoutManager2;
-    RecyclerView categoryRecyclerView, ingredientRecyclerView;
+    private CountryAdapter countryAdapter;
+    LinearLayoutManager linearLayoutManager, linearLayoutManager2, linearLayoutManager3;
+    RecyclerView categoryRecyclerView, ingredientRecyclerView, countryRecyclerView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,11 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     }
 
     @Override
+    public void showCountries(ArrayList<Country> countries) {
+        countryAdapter.setDataSource(countries);
+    }
+
+    @Override
     public void showErrMsg(String error) {
         Log.i("TAG", "showErrMsg: "+error);
     }
@@ -92,15 +99,24 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         newMeal = view.findViewById(R.id.newMeal);
         categoryRecyclerView = view.findViewById(R.id.categoriesRV);
         ingredientRecyclerView = view.findViewById(R.id.ingredientRV);
+        countryRecyclerView = view.findViewById(R.id.areaRV);
         categoryAdapter = new CategoryAdapter(getContext());
         ingredientAdapter = new IngredientAdapter(getContext());
+        countryAdapter = new CountryAdapter(getContext());
+
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(linearLayoutManager);
         categoryRecyclerView.setAdapter(categoryAdapter);
+
         linearLayoutManager2 = new LinearLayoutManager(getContext());
         linearLayoutManager2.setOrientation(RecyclerView.HORIZONTAL);
         ingredientRecyclerView.setLayoutManager(linearLayoutManager2);
         ingredientRecyclerView.setAdapter(ingredientAdapter);
+
+        linearLayoutManager3 = new LinearLayoutManager(getContext());
+        linearLayoutManager3.setOrientation(RecyclerView.HORIZONTAL);
+        countryRecyclerView.setLayoutManager(linearLayoutManager3);
+        countryRecyclerView.setAdapter(countryAdapter);
     }
 }
