@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.foodplanner.Models.CategoryResponse;
 import com.example.foodplanner.Models.IngredientResponse;
-import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Models.MealResponses;
 
 import retrofit2.Call;
