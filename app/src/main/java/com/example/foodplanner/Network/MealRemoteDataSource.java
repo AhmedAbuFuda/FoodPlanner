@@ -1,7 +1,7 @@
 package com.example.foodplanner.Network;
 
-import com.example.foodplanner.Models.Meal;
-
 public interface MealRemoteDataSource {
     public void makeNetworkCall(NetworkCallBack networkCallback);
+    void makeNetworkCall(FilterCallBack filterCallBack, String name, char c);
+    void makeNetworkCall(MealByIdCallBack mealByIdCallBack, String id);
 }

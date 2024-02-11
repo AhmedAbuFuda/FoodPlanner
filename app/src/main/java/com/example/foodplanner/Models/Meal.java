@@ -1,6 +1,9 @@
 package com.example.foodplanner.Models;
 
-public class Meal{
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Meal implements Serializable {
     public String idMeal;
     public String strMeal;
     public Object strDrinkAlternate;
@@ -10,6 +13,7 @@ public class Meal{
     public String strMealThumb;
     public String strTags;
     public String strYoutube;
+    public ArrayList<IngredientMeasure> ingredientList;
     public String strIngredient1;
     public String strIngredient2;
     public String strIngredient3;
@@ -54,6 +58,10 @@ public class Meal{
     public Object strImageSource;
     public Object strCreativeCommonsConfirmed;
     public Object dateModified;
+
+    public Meal() {
+        ingredientList = new ArrayList<>();
+    }
 
     public String getIdMeal() {
         return idMeal;
@@ -121,6 +129,74 @@ public class Meal{
 
     public String getStrYoutube() {
         return strYoutube;
+    }
+
+    public ArrayList<IngredientMeasure> getIngredientList() {
+        if(strIngredient1 != null && !strIngredient1.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient1,strMeasure1));
+        }
+        if(strIngredient2 != null && !strIngredient2.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient2,strMeasure2));
+        }
+        if(strIngredient3 != null && !strIngredient3.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient3,strMeasure3));
+        }
+        if(strIngredient4 != null && !strIngredient4.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient4,strMeasure4));
+        }
+        if(strIngredient5 != null && !strIngredient5.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient5,strMeasure5));
+        }
+        if(strIngredient6 != null && !strIngredient6.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient6,strMeasure6));
+        }
+        if(strIngredient7 != null && !strIngredient7.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient7,strMeasure7));
+        }
+        if(strIngredient8 != null && !strIngredient8.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient8,strMeasure8));
+        }
+        if(strIngredient9 != null && !strIngredient9.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient9,strMeasure9));
+        }
+        if(strIngredient10 != null && !strIngredient10.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient10,strMeasure10));
+        }
+        if(strIngredient11 != null && !strIngredient11.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient11,strMeasure11));
+        }
+        if(strIngredient12 != null && !strIngredient12.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient12,strMeasure12));
+        }
+        if(strIngredient13 != null && !strIngredient13.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient13,strMeasure13));
+        }
+        if(strIngredient14 != null && !strIngredient14.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient14,strMeasure14));
+        }
+        if(strIngredient15 != null && !strIngredient15.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient15,strMeasure15));
+        }
+        if(strIngredient16 != null && !strIngredient16.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient16,strMeasure16));
+        }
+        if(strIngredient17 != null && !strIngredient17.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient17,strMeasure17));
+        }
+        if(strIngredient18 != null && !strIngredient18.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient18,strMeasure18));
+        }
+        if(strIngredient19 != null && !strIngredient19.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient19,strMeasure19));
+        }
+        if(strIngredient20 != null && !strIngredient20.equals("")){
+            ingredientList.add(new IngredientMeasure(strIngredient20,strMeasure20));
+        }
+        return ingredientList;
+    }
+
+    public void setIngredientList(ArrayList<IngredientMeasure> ingredientList) {
+        this.ingredientList = ingredientList;
     }
 
     public void setStrYoutube(String strYoutube) {

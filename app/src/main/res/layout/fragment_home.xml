@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             style="@style/mainText"
-            android:text="Daily Inspiration"
+            android:text="@string/daily_inspiration"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/topGuideline" />
 
@@ -70,8 +70,11 @@
                     android:id="@+id/nameOfDailyMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="15dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -110,7 +113,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:layout_marginStart="25dp"
-            android:text="Categories"
+            android:text="@string/categories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
@@ -132,7 +135,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:layout_marginStart="25dp"
-            android:text="Ingredients"
+            android:text="@string/ingredients"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categoriesRV" />
 
@@ -154,7 +157,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:layout_marginStart="25dp"
-            android:text="Area"
+            android:text="@string/area"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ingredientRV" />
 

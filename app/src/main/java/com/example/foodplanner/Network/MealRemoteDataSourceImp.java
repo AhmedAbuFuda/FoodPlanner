@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.foodplanner.Models.CategoryResponse;
 import com.example.foodplanner.Models.CountryResponse;
 import com.example.foodplanner.Models.IngredientResponse;
+import com.example.foodplanner.Models.MealList;
+import com.example.foodplanner.Models.MealListResponse;
 import com.example.foodplanner.Models.MealResponses;
 
 import retrofit2.Call;
@@ -94,5 +96,65 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
             }
         });
 
+    }
+
+    @Override
+    public void makeNetworkCall(FilterCallBack filterCallBack, String name, char c) {
+        if (c == 'c') {
+            Call<MealResponses> allMealsByCategory = services.getAllMealsByCategory(name);
+            allMealsByCategory.enqueue(new Callback<MealResponses>() {
+                @Override
+                public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
+                    filterCallBack.onSuccessMealByFilter(response.body().meals);
+                }
+
+                @Override
+                public void onFailure(Call<MealResponses> call, Throwable t) {
+                    filterCallBack.onFailure(t.getMessage());
+                }
+            });
+        }else if (c == 'i') {
+            Call<MealResponses> allMealsByIngredient = services.getAllMealsByIngredient(name);
+            allMealsByIngredient.enqueue(new Callback<MealResponses>() {
+                @Override
+                public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
+                    filterCallBack.onSuccessMealByFilter(response.body().meals);
+                }
+
+                @Override
+                public void onFailure(Call<MealResponses> call, Throwable t) {
+                    filterCallBack.onFailure(t.getMessage());
+                }
+            });
+        }else if (c == 'a') {
+            Call<MealResponses> allMealsByArea = services.getAllMealsByArea(name);
+            allMealsByArea.enqueue(new Callback<MealResponses>() {
+                @Override
+                public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
+                    filterCallBack.onSuccessMealByFilter(response.body().meals);
+                }
+
+                @Override
+                public void onFailure(Call<MealResponses> call, Throwable t) {
+                    filterCallBack.onFailure(t.getMessage());
+                }
+            });
+        }
+    }
+
+    @Override
+    public void makeNetworkCall(MealByIdCallBack mealByIdCallBack, String id) {
+        Call<MealResponses> getMeal= services.getMealById(id);
+        getMeal.enqueue(new Callback<MealResponses>() {
+            @Override
+            public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
+                mealByIdCallBack.onSuccessMealById(response.body().meals);
+            }
+            @Override
+            public void onFailure(Call<MealResponses> call, Throwable t) {
+                mealByIdCallBack.onFailure(t.getMessage());
+                Log.i("TAG", "OnFailure: "+t.getMessage());
+            }
+        });
     }
 }

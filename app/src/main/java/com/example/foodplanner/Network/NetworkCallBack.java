@@ -4,6 +4,7 @@ import com.example.foodplanner.Models.Category;
 import com.example.foodplanner.Models.Country;
 import com.example.foodplanner.Models.Ingredient;
 import com.example.foodplanner.Models.Meal;
+import com.example.foodplanner.Models.MealList;
 
 import java.util.ArrayList;
 

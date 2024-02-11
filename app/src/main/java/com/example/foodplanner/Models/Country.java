@@ -1,6 +1,8 @@
 package com.example.foodplanner.Models;
 
-public class Country {
+import java.io.Serializable;
+
+public class Country implements Serializable {
     public String strArea;
 
     public String getStrArea() {

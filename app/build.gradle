@@ -51,4 +51,8 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.1"
     annotationProcessor "androidx.room:room-compiler:2.4.1"
 
+    implementation 'kr.co.prnd:readmore-textview:1.0.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28'
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

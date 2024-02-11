@@ -21,6 +21,12 @@
     <string name="search">Search</string>
     <string name="plan">Plan</string>
     <string name="account">Account</string>
+    <string name="daily_inspiration">Daily Inspiration</string>
+    <string name="categories">Categories</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="area">Area</string>
+    <string name="country">Country :</string>
+    <string name="instruction">Instruction</string>
 
     <string-array name="area">
         <item>US</item>

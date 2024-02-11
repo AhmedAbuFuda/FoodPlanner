@@ -1,9 +1,11 @@
 package com.example.foodplanner.Home.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Home.Presenter.HomePresenter;
 import com.example.foodplanner.Home.Presenter.HomePresenterImp;
+import com.example.foodplanner.MealActivity.view.MealActivity;
 import com.example.foodplanner.Models.Category;
 import com.example.foodplanner.Models.Country;
 import com.example.foodplanner.Models.Ingredient;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements HomeMealsView {
     ImageView dailyMealImage, newMeal;
     TextView nameOfDailyMeal;
+    CardView mealCard;
     private Meal randomMeal;
     HomePresenter presenter;
     private CategoryAdapter categoryAdapter;
@@ -63,6 +67,13 @@ public class HomeFragment extends Fragment implements HomeMealsView {
 
         newMeal.setOnClickListener(v -> {
             presenter.getRandomMeal();
+        });
+
+        mealCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MealActivity.class);
+            intent.putExtra("meal", randomMeal);
+            intent.putExtra("type","random");
+            startActivity(intent);
         });
     }
 
@@ -100,6 +111,8 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         categoryRecyclerView = view.findViewById(R.id.categoriesRV);
         ingredientRecyclerView = view.findViewById(R.id.ingredientRV);
         countryRecyclerView = view.findViewById(R.id.areaRV);
+        mealCard = view.findViewById(R.id.cardView);
+
         categoryAdapter = new CategoryAdapter(getContext());
         ingredientAdapter = new IngredientAdapter(getContext());
         countryAdapter = new CountryAdapter(getContext());

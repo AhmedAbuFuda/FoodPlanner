@@ -3,10 +3,13 @@ package com.example.foodplanner.Network;
 import com.example.foodplanner.Models.CategoryResponse;
 import com.example.foodplanner.Models.CountryResponse;
 import com.example.foodplanner.Models.IngredientResponse;
+import com.example.foodplanner.Models.MealList;
+import com.example.foodplanner.Models.MealListResponse;
 import com.example.foodplanner.Models.MealResponses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface MealServices {
     @GET("api/json/v1/1/random.php")
@@ -17,5 +20,13 @@ public interface MealServices {
     Call<IngredientResponse> getAllIngredients();
     @GET("api/json/v1/1/list.php?a=list")
     Call<CountryResponse> getAllCountries();
+    @GET("api/json/v1/1/filter.php?")
+    Call<MealResponses> getAllMealsByCategory(@Query("c") String category);
+    @GET("api/json/v1/1/filter.php?")
+    Call<MealResponses> getAllMealsByIngredient(@Query("i") String ingredient);
+    @GET("api/json/v1/1/filter.php?")
+    Call<MealResponses> getAllMealsByArea(@Query("a") String area);
+    @GET("api/json/v1/1/lookup.php?")
+    Call<MealResponses> getMealById(@Query("i") String id);
 
 }
