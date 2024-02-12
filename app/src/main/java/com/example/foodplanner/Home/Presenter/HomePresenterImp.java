@@ -25,6 +25,11 @@ public class HomePresenterImp implements HomePresenter, NetworkCallBack{
     }
 
     @Override
+    public void addToFav(Meal meal) {
+        repositoryImp.insert(meal);
+    }
+
+    @Override
     public void onSuccessMeal(ArrayList<Meal> meals) {
         view.showMeals(meals);
     }

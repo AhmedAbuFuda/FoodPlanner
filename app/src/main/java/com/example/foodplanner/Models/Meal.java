@@ -1,11 +1,20 @@
 package com.example.foodplanner.Models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Entity(tableName = "FavoriteMeals")
 public class Meal implements Serializable {
+    @PrimaryKey
+    @NonNull
     public String idMeal;
     public String strMeal;
+    @Ignore
     public Object strDrinkAlternate;
     public String strCategory;
     public String strArea;
@@ -13,6 +22,7 @@ public class Meal implements Serializable {
     public String strMealThumb;
     public String strTags;
     public String strYoutube;
+    @Ignore
     public ArrayList<IngredientMeasure> ingredientList;
     public String strIngredient1;
     public String strIngredient2;
@@ -55,8 +65,11 @@ public class Meal implements Serializable {
     public String strMeasure19;
     public String strMeasure20;
     public String strSource;
+    @Ignore
     public Object strImageSource;
+    @Ignore
     public Object strCreativeCommonsConfirmed;
+    @Ignore
     public Object dateModified;
 
     public Meal() {
@@ -546,7 +559,6 @@ public class Meal implements Serializable {
     public void setStrCreativeCommonsConfirmed(Object strCreativeCommonsConfirmed) {
         this.strCreativeCommonsConfirmed = strCreativeCommonsConfirmed;
     }
-
     public Object getDateModified() {
         return dateModified;
     }

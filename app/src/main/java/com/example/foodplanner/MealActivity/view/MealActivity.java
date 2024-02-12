@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,8 @@ import java.util.Calendar;
 import kr.co.prnd.readmore.ReadMoreTextView;
 
 public class MealActivity extends AppCompatActivity implements MealView {
-    ImageView mealImage, calenderImage;
+    ImageView mealImage;
+    ImageButton calenderImage, favImage;
     TextView mealName, category, country;
     ReadMoreTextView instruction;
     YouTubePlayerView playerView;
@@ -84,7 +86,16 @@ public class MealActivity extends AppCompatActivity implements MealView {
 
         calenderImage.setOnClickListener(v -> {
           addToCalendar(meal);
+            Toast.makeText(this,"Add to Calender Successfully",Toast.LENGTH_SHORT).show();
         });
+
+        favImage.setOnClickListener(v -> {
+            addMeal(meal);
+            favImage.setClickable(false);
+            Toast.makeText(this,"Add to Favorite Successfully",Toast.LENGTH_SHORT).show();
+        });
+
+
     }
 
     private void init() {
@@ -96,6 +107,7 @@ public class MealActivity extends AppCompatActivity implements MealView {
         playerView = findViewById(R.id.youtubePlayerView);
         ingredientRV = findViewById(R.id.ingredientRecyclerView);
         calenderImage = findViewById(R.id.calender);
+        favImage = findViewById(R.id.favImage);
         adapter = new IngredientItemAdapter(this);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -130,6 +142,11 @@ public class MealActivity extends AppCompatActivity implements MealView {
     @Override
     public void showErrMsg(String error) {
 
+    }
+
+    @Override
+    public void addMeal(Meal meal) {
+        presenter.addToFav(meal);
     }
 
     private void addToCalendar(Meal meal) {

@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Home.Presenter.HomePresenter;
@@ -34,7 +36,8 @@ import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment implements HomeMealsView {
-    ImageView dailyMealImage, newMeal;
+    ImageView dailyMealImage;
+    ImageButton newMeal, favMeal;
     TextView nameOfDailyMeal;
     CardView mealCard;
     private Meal randomMeal;
@@ -66,7 +69,14 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         presenter.getRandomMeal();
 
         newMeal.setOnClickListener(v -> {
+            favMeal.setClickable(true);
             presenter.getRandomMeal();
+        });
+
+        favMeal.setOnClickListener(v -> {
+            addMeal(randomMeal);
+            favMeal.setClickable(false);
+            Toast.makeText(getContext(),"Add to Favorite Successfully",Toast.LENGTH_SHORT).show();
         });
 
         mealCard.setOnClickListener(v -> {
@@ -104,6 +114,11 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         Log.i("TAG", "showErrMsg: "+error);
     }
 
+    @Override
+    public void addMeal(Meal meal) {
+        presenter.addToFav(meal);
+    }
+
     private void init(View view){
         dailyMealImage = view.findViewById(R.id.dailyMealImage);
         nameOfDailyMeal = view.findViewById(R.id.nameOfDailyMeal);
@@ -112,6 +127,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         ingredientRecyclerView = view.findViewById(R.id.ingredientRV);
         countryRecyclerView = view.findViewById(R.id.areaRV);
         mealCard = view.findViewById(R.id.cardView);
+        favMeal = view.findViewById(R.id.fav);
 
         categoryAdapter = new CategoryAdapter(getContext());
         ingredientAdapter = new IngredientAdapter(getContext());

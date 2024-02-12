@@ -22,6 +22,11 @@ public class MealPresenterImp implements MealPresenter, MealByIdCallBack {
     }
 
     @Override
+    public void addToFav(Meal meal) {
+        repositoryImp.insert(meal);
+    }
+
+    @Override
     public void onSuccessMealById(ArrayList<Meal> meals) {
         view.showMeals(meals);
     }

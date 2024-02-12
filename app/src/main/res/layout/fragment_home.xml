@@ -84,25 +84,25 @@
                     app:layout_constraintStart_toStartOf="@+id/dailyMealImage"
                     app:layout_constraintTop_toBottomOf="@+id/dailyMealImage" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
+                <ImageButton
+                    android:id="@+id/fav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/favorite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/newMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/autorenew"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/fav" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

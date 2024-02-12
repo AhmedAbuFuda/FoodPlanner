@@ -13,4 +13,5 @@ public interface HomeMealsView {
     public void showIngredient(ArrayList<Ingredient> ingredients);
     public void showCountries(ArrayList<Country> countries);
     public void showErrMsg(String error);
+    void addMeal(Meal meal);
 }
