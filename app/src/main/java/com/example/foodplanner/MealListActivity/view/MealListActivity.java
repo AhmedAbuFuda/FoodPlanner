@@ -21,6 +21,7 @@ import com.example.foodplanner.Models.Category;
 import com.example.foodplanner.Models.Country;
 import com.example.foodplanner.Models.Ingredient;
 import com.example.foodplanner.Models.Meal;
+import com.example.foodplanner.Models.Search;
 import com.example.foodplanner.Network.MealRemoteDataSourceImp;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Repository.MealRepositoryImp;
@@ -73,6 +74,15 @@ public class MealListActivity extends AppCompatActivity implements MealListView{
                     .error(R.drawable.ic_launcher_foreground)
                     .into(mealImage);
             presenter.getFilteredMeals(country.getStrArea(), 'a');
+        } else if (type.equals("Search")) {
+            Search search = (Search) intent.getSerializableExtra("model");
+            char flag = intent.getCharExtra("flag",'c');
+            nameText.setText(search.getSearchName());
+            Glide.with(this).load(search.getSearchImage())
+                    .placeholder(R.drawable.loading)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(mealImage);
+            presenter.getFilteredMeals(search.getSearchName(), flag);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.foodplanner.Search.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.foodplanner.MealListActivity.view.MealListActivity;
 import com.example.foodplanner.Models.Category;
 import com.example.foodplanner.Models.Country;
 import com.example.foodplanner.Models.Ingredient;
@@ -180,5 +182,14 @@ public class SearchFragment extends Fragment implements SearchView, OnItemSearch
             }
         }
         return filtered;
+    }
+
+    @Override
+    public void onItemClick(Search search) {
+        Intent intent = new Intent(getContext(), MealListActivity.class);
+        intent.putExtra("model", search);
+        intent.putExtra("type","Search");
+        intent.putExtra("flag",flag);
+        startActivity(intent);
     }
 }

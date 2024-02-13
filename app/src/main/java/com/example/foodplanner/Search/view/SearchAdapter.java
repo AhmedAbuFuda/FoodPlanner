@@ -1,6 +1,7 @@
 package com.example.foodplanner.Search.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.MealListActivity.view.MealListActivity;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Models.Search;
 import com.example.foodplanner.R;
@@ -42,6 +45,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             Search search = searchArrayList.get(position);
             holder.searchName.setText(search.getSearchName());
             Glide.with(context).load(search.getSearchImage()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher_foreground).into(holder.searchImage);
+            holder.cardView.setOnClickListener(v -> {
+                listener.onItemClick(search);
+            });
         }
     }
 
@@ -54,10 +60,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     class SearchViewHolder extends RecyclerView.ViewHolder {
         ImageView searchImage;
         TextView searchName;
+        CardView cardView;
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
             searchImage = itemView.findViewById(R.id.searchImage);
             searchName = itemView.findViewById(R.id.searchName);
+            cardView = itemView.findViewById(R.id.searchCard);
         }
     }
 

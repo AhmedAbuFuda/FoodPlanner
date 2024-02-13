@@ -1,6 +1,8 @@
 package com.example.foodplanner.Models;
 
-public class Search {
+import java.io.Serializable;
+
+public class Search implements Serializable {
     String searchName;
     String searchImage;
 
