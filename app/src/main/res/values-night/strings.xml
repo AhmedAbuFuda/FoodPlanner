@@ -26,6 +26,7 @@
     <string name="country">Country :</string>
     <string name="instruction">Instruction</string>
     <string name="my_favorite_meals">My Favorite Meals</string>
+    <string name="add_meal_to_your_plan">Add meal to your plan</string>
 
     <string-array name="area">
         <item>US</item>

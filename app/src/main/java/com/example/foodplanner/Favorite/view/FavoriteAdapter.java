@@ -56,9 +56,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         CardView cardView;
         public FavoriteViewHolder(@NonNull View itemView) {
             super(itemView);
-            favMealImage = itemView.findViewById(R.id.favMealImage);
-            deleteImage = itemView.findViewById(R.id.delete);
-            favMealName = itemView.findViewById(R.id.favMealName);
+            favMealImage = itemView.findViewById(R.id.planImage);
+            deleteImage = itemView.findViewById(R.id.add);
+            favMealName = itemView.findViewById(R.id.planName);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }
