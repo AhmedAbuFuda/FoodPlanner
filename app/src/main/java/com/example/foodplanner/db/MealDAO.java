@@ -16,4 +16,6 @@ public interface MealDAO {
     void deleteMeal (Meal meal);
     @Query("SELECT * FROM FavoriteMeals")
     LiveData<List<Meal>> getAllFavMeal();
+    @Query("SELECT * FROM FavoriteMeals where day = :day")
+    LiveData<List<Meal>> getMealsByDay(String day);
 }

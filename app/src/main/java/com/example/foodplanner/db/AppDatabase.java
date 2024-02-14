@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.foodplanner.Models.Meal;
 
-@Database(entities = {Meal.class}, version = 1)
+@Database(entities = {Meal.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase = null;
 

@@ -63,7 +63,7 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealVi
             super(itemView);
             mealPhoto = itemView.findViewById(R.id.mealPhoto);
             mealName = itemView.findViewById(R.id.mealName);
-            cardView = itemView.findViewById(R.id.cardView);
+            cardView = itemView.findViewById(R.id.mealCard);
         }
     }
     public void setDataSource(ArrayList<Meal> meals) {

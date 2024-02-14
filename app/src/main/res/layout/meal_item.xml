@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     layout_height=""
     layout_width=""
-    android:id="@+id/cardView"
+    android:id="@+id/mealCard"
     android:layout_width="140dp"
     android:layout_height="250dp"
     android:layout_margin="10dp"

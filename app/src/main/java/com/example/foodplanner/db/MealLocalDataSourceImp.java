@@ -11,7 +11,7 @@ import java.util.List;
 public class MealLocalDataSourceImp implements MealLocalDataSource{
     private Context context;
     private MealDAO dao;
-    private LiveData<List<Meal>> data;
+    private LiveData<List<Meal>> data , planData;
     private static MealLocalDataSourceImp dataSourceImp;
 
     private MealLocalDataSourceImp(Context _context){
@@ -30,6 +30,12 @@ public class MealLocalDataSourceImp implements MealLocalDataSource{
     @Override
     public LiveData<List<Meal>> getFavMeals() {
         return data;
+    }
+
+    @Override
+    public LiveData<List<Meal>> getPlanMeals(String day) {
+        planData = dao.getMealsByDay(day);
+        return planData;
     }
 
     @Override

@@ -56,5 +56,10 @@ public class MealRepositoryImp implements MealRepository{
         return localDataSource.getFavMeals();
     }
 
+    @Override
+    public LiveData<List<Meal>> getPlanMeals(String day) {
+        return  localDataSource.getPlanMeals(day);
+    }
+
 
 }

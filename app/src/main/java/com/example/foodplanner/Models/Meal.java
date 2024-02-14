@@ -13,6 +13,7 @@ public class Meal implements Serializable {
     @PrimaryKey
     @NonNull
     public String idMeal;
+    private String day;
     public String strMeal;
     @Ignore
     public Object strDrinkAlternate;
@@ -565,5 +566,13 @@ public class Meal implements Serializable {
 
     public void setDateModified(Object dateModified) {
         this.dateModified = dateModified;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }

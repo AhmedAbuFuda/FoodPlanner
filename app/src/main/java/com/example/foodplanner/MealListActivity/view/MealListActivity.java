@@ -84,6 +84,10 @@ public class MealListActivity extends AppCompatActivity implements MealListView{
                     .into(mealImage);
             presenter.getFilteredMeals(search.getSearchName(), flag);
         }
+
+        back.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     public void init() {

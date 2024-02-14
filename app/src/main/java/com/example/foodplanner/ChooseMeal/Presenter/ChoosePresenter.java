@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ChoosePresenter {
     LiveData<List<Meal>> getAllFavMeal();
-    void insertToPlan(Meal meal, String day);
+    void insertToPlan(Meal meal);
+    void delete(Meal meal);
 }

@@ -38,7 +38,7 @@ import kr.co.prnd.readmore.ReadMoreTextView;
 
 public class MealActivity extends AppCompatActivity implements MealView {
     ImageView mealImage;
-    ImageButton calenderImage, favImage;
+    ImageButton calenderImage, favImage, back;
     TextView mealName, category, country;
     ReadMoreTextView instruction;
     YouTubePlayerView playerView;
@@ -95,6 +95,9 @@ public class MealActivity extends AppCompatActivity implements MealView {
             Toast.makeText(this,"Add to Favorite Successfully",Toast.LENGTH_SHORT).show();
         });
 
+        back.setOnClickListener(v -> {
+            finish();
+        });
 
     }
 
@@ -108,6 +111,7 @@ public class MealActivity extends AppCompatActivity implements MealView {
         ingredientRV = findViewById(R.id.ingredientRecyclerView);
         calenderImage = findViewById(R.id.calender);
         favImage = findViewById(R.id.favImage);
+        back = findViewById(R.id.backButton);
         adapter = new IngredientItemAdapter(this);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);

@@ -16,4 +16,5 @@ public interface MealRepository {
     void insert(Meal meal);
     void delete(Meal meal);
     LiveData<List<Meal>> getFavMeals();
+    LiveData<List<Meal>> getPlanMeals(String day);
 }

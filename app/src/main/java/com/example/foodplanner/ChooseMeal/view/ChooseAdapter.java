@@ -22,9 +22,9 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ChooseView
     private Context context;
     ArrayList<Meal> mealArrayList = new ArrayList<>();
 
-    OnItemClickListener listener;
+    OnDayCardClick listener;
 
-    public ChooseAdapter(Context context, OnItemClickListener listener) {
+    public ChooseAdapter(Context context, OnDayCardClick listener) {
         this.context = context;
         this.listener = listener;
     }
@@ -44,8 +44,8 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ChooseView
             Meal meal = mealArrayList.get(position);
             holder.planName.setText(meal.getStrMeal());
             Glide.with(context).load(meal.getStrMealThumb()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher_foreground).into(holder.planImage);
-            holder.addImage.setOnClickListener(v -> {listener.onDeleteMealClick(meal);});
-            holder.cardView.setOnClickListener(v -> {listener.onItemClick(meal);});
+            holder.addImage.setOnClickListener(v -> {listener.onAddIconClick(meal);});
+            holder.cardView.setOnClickListener(v -> {listener.onCardChoose(meal);});
         }
     }
 
@@ -61,9 +61,9 @@ public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.ChooseView
         public ChooseViewHolder(@NonNull View itemView) {
             super(itemView);
             planImage = itemView.findViewById(R.id.planImage);
-            addImage = itemView.findViewById(R.id.add);
+            addImage = itemView.findViewById(R.id.addPlan);
             planName = itemView.findViewById(R.id.planName);
-            cardView = itemView.findViewById(R.id.card);
+            cardView = itemView.findViewById(R.id.planCard);
         }
     }
 

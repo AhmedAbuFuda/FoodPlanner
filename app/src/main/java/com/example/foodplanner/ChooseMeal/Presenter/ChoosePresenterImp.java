@@ -22,7 +22,12 @@ public class ChoosePresenterImp implements ChoosePresenter {
     }
 
     @Override
-    public void insertToPlan(Meal meal, String day) {
+    public void insertToPlan(Meal meal) {
+        repositoryImp.insert(meal);
+    }
 
+    @Override
+    public void delete(Meal meal) {
+        repositoryImp.delete(meal);
     }
 }

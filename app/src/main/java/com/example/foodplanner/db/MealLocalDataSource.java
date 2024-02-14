@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MealLocalDataSource {
     LiveData<List<Meal>> getFavMeals();
+    LiveData<List<Meal>> getPlanMeals(String day);
     void insert(Meal meal);
     void delete(Meal meal);
 }
