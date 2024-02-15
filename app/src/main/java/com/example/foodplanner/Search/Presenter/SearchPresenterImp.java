@@ -1,15 +1,23 @@
 package com.example.foodplanner.Search.Presenter;
 
+import android.annotation.SuppressLint;
+
 import com.example.foodplanner.Home.View.HomeMealsView;
 import com.example.foodplanner.Models.Category;
+import com.example.foodplanner.Models.CategoryResponse;
 import com.example.foodplanner.Models.Country;
+import com.example.foodplanner.Models.CountryResponse;
 import com.example.foodplanner.Models.Ingredient;
+import com.example.foodplanner.Models.IngredientResponse;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Network.NetworkCallBack;
 import com.example.foodplanner.Repository.MealRepositoryImp;
 import com.example.foodplanner.Search.view.SearchView;
 
 import java.util.ArrayList;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
 
 public class SearchPresenterImp implements SearchPresenter, NetworkCallBack {
     private SearchView view;
@@ -19,8 +27,24 @@ public class SearchPresenterImp implements SearchPresenter, NetworkCallBack {
         this.view = view;
         this.repositoryImp = repositoryImp;
     }
+    @SuppressLint("CheckResult")
     @Override
-    public void getSearchItem() { repositoryImp.getRandomMeal(this);}
+    public void getSearchItem() {
+        Observable<CategoryResponse> getCategories = repositoryImp.getCategories();
+        getCategories.observeOn(AndroidSchedulers.mainThread()).subscribe(categoryResponse -> {
+            view.showCategories(categoryResponse.categories);
+        },err-> view.showErrMsg(err.getMessage()));
+
+        Observable<IngredientResponse> getIngredient = repositoryImp.getIngredient();
+        getIngredient.observeOn(AndroidSchedulers.mainThread()).subscribe(ingredientResponse -> {
+            view.showIngredient(ingredientResponse.meals);
+        },err-> view.showErrMsg(err.getMessage()));
+
+        Observable<CountryResponse> getCountries = repositoryImp.getCountries();
+        getCountries.observeOn(AndroidSchedulers.mainThread()).subscribe(countryResponse -> {
+            view.showCountries(countryResponse.meals);
+        },err-> view.showErrMsg(err.getMessage()));
+    }
 
     @Override
     public void onSuccessAllCategory(ArrayList<Category> categories) {

@@ -28,16 +28,23 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/emailEditText"
-            style="@style/MyCustomEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:ems="10"
-            android:textSize="18sp"
-            android:inputType="textEmailAddress" />
+            android:layout_marginEnd="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                app:boxBackgroundColor="@color/mainColor"
+                android:background="@android:color/white"
+                tools:layout_editor_absoluteX="0dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/passwordTextView"
@@ -51,31 +58,26 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/passwordEditText"
-            style="@style/MyCustomEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createPasswordTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="18sp"
-            app:passwordToggleEnabled="true" />
+            app:passwordToggleEnabled="true">
 
-        <CheckBox
-            android:id="@+id/rememberCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/kanit"
-            android:text="@string/remember_me"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:buttonTint="@color/mainColor"
-            android:buttonTintMode="src_atop"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                app:boxBackgroundColor="@color/mainColor"
+                android:background="@android:color/white"
+                tools:layout_editor_absoluteX="0dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <Button
             android:id="@+id/loginBtn"
