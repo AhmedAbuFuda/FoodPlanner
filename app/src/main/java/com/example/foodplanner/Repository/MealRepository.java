@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Observable;
 
 public interface MealRepository {
     void getRandomMeal(NetworkCallBack networkCallBack);
-    void getFilteredMeals(FilterCallBack filterCallBack, String name, char c);
+    Observable<MealResponses> getFilteredMeals(String name, char c);
     Observable<MealResponses> getMealsById(String id);
     void insert(Meal meal);
     void delete(Meal meal);

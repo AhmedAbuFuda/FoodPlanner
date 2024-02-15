@@ -22,11 +22,11 @@ public interface MealServices {
     @GET("api/json/v1/1/list.php?a=list")
     Call<CountryResponse> getAllCountries();
     @GET("api/json/v1/1/filter.php?")
-    Call<MealResponses> getAllMealsByCategory(@Query("c") String category);
+    Observable<MealResponses> getAllMealsByCategory(@Query("c") String category);
     @GET("api/json/v1/1/filter.php?")
-    Call<MealResponses> getAllMealsByIngredient(@Query("i") String ingredient);
+    Observable<MealResponses> getAllMealsByIngredient(@Query("i") String ingredient);
     @GET("api/json/v1/1/filter.php?")
-    Call<MealResponses> getAllMealsByArea(@Query("a") String area);
+    Observable<MealResponses> getAllMealsByArea(@Query("a") String area);
     @GET("api/json/v1/1/lookup.php?")
     Observable<MealResponses> getMealById(@Query("i") String id);
 

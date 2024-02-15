@@ -36,8 +36,8 @@ public class MealRepositoryImp implements MealRepository{
     }
 
     @Override
-    public void getFilteredMeals(FilterCallBack filterCallBack, String name, char c) {
-        remoteDataSource.makeNetworkCall(filterCallBack,name,c);
+    public Observable<MealResponses> getFilteredMeals( String name, char c) {
+        return remoteDataSource.makeNetworkCall(name,c);
     }
 
     @Override
