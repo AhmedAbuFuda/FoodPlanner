@@ -7,7 +7,7 @@ import com.example.foodplanner.Models.Meal;
 import java.util.List;
 
 public interface ChoosePresenter {
-    LiveData<List<Meal>> getAllFavMeal();
+    void  getAllFavMeal();
     void insertToPlan(Meal meal);
     void delete(Meal meal);
 }

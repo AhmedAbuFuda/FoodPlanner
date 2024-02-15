@@ -7,6 +7,7 @@ import com.example.foodplanner.Models.MealList;
 import com.example.foodplanner.Models.MealListResponse;
 import com.example.foodplanner.Models.MealResponses;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -27,6 +28,6 @@ public interface MealServices {
     @GET("api/json/v1/1/filter.php?")
     Call<MealResponses> getAllMealsByArea(@Query("a") String area);
     @GET("api/json/v1/1/lookup.php?")
-    Call<MealResponses> getMealById(@Query("i") String id);
+    Observable<MealResponses> getMealById(@Query("i") String id);
 
 }

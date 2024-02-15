@@ -8,10 +8,14 @@ import com.example.foodplanner.Models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MealLocalDataSourceImp implements MealLocalDataSource{
     private Context context;
     private MealDAO dao;
-    private LiveData<List<Meal>> data , planData;
+    private Flowable<List<Meal>> data;
+     LiveData<List<Meal>> planData;
     private static MealLocalDataSourceImp dataSourceImp;
 
     private MealLocalDataSourceImp(Context _context){
@@ -28,8 +32,8 @@ public class MealLocalDataSourceImp implements MealLocalDataSource{
     }
 
     @Override
-    public LiveData<List<Meal>> getFavMeals() {
-        return data;
+    public Flowable<List<Meal>> getFavMeals() {
+        return data.subscribeOn(Schedulers.io());
     }
 
     @Override

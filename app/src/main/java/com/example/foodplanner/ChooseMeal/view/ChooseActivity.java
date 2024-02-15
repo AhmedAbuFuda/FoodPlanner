@@ -44,7 +44,7 @@ public class ChooseActivity extends AppCompatActivity implements ChooseView,OnDa
         adapter = new ChooseAdapter(this,this);
         presenter = new ChoosePresenterImp(this, MealRepositoryImp.getInstance(MealRemoteDataSourceImp.getInstance(),
                 MealLocalDataSourceImp.getInstance(this)));
-        getPlanMeal();
+        presenter.getAllFavMeal();
         adapter = new ChooseAdapter(this,this);
         gridLayoutManager = new GridLayoutManager(this,2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -58,11 +58,8 @@ public class ChooseActivity extends AppCompatActivity implements ChooseView,OnDa
 
 
     @Override
-    public void getPlanMeal() {
-        LiveData<List<Meal>> data = presenter.getAllFavMeal();
-        data.observe(this,meals -> {
-            adapter.setDataSource((ArrayList<Meal>) meals);
-        });
+    public void getPlanMeal(List<Meal> meals) {
+        adapter.setDataSource((ArrayList<Meal>) meals);
     }
 
     @Override

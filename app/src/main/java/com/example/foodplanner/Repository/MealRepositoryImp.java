@@ -3,6 +3,7 @@ package com.example.foodplanner.Repository;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.Models.Meal;
+import com.example.foodplanner.Models.MealResponses;
 import com.example.foodplanner.Network.FilterCallBack;
 import com.example.foodplanner.Network.MealByIdCallBack;
 import com.example.foodplanner.Network.MealRemoteDataSource;
@@ -10,6 +11,9 @@ import com.example.foodplanner.Network.NetworkCallBack;
 import com.example.foodplanner.db.MealLocalDataSource;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class MealRepositoryImp implements MealRepository{
     MealRemoteDataSource remoteDataSource;
@@ -37,8 +41,8 @@ public class MealRepositoryImp implements MealRepository{
     }
 
     @Override
-    public void getMealsById(MealByIdCallBack mealByIdCallBack, String id) {
-        remoteDataSource.makeNetworkCall(mealByIdCallBack,id);
+    public Observable<MealResponses> getMealsById( String id) {
+        return remoteDataSource.makeNetworkCall(id);
     }
 
     @Override
@@ -52,7 +56,7 @@ public class MealRepositoryImp implements MealRepository{
     }
 
     @Override
-    public LiveData<List<Meal>> getFavMeals() {
+    public Flowable<List<Meal>> getFavMeals() {
         return localDataSource.getFavMeals();
     }
 

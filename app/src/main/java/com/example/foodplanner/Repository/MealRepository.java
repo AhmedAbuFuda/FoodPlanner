@@ -3,18 +3,22 @@ package com.example.foodplanner.Repository;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.Models.Meal;
+import com.example.foodplanner.Models.MealResponses;
 import com.example.foodplanner.Network.FilterCallBack;
 import com.example.foodplanner.Network.MealByIdCallBack;
 import com.example.foodplanner.Network.NetworkCallBack;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+
 public interface MealRepository {
     void getRandomMeal(NetworkCallBack networkCallBack);
     void getFilteredMeals(FilterCallBack filterCallBack, String name, char c);
-    void getMealsById(MealByIdCallBack mealByIdCallBack, String id);
+    Observable<MealResponses> getMealsById(String id);
     void insert(Meal meal);
     void delete(Meal meal);
-    LiveData<List<Meal>> getFavMeals();
+    Flowable<List<Meal>> getFavMeals();
     LiveData<List<Meal>> getPlanMeals(String day);
 }

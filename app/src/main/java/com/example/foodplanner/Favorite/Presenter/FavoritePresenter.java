@@ -7,6 +7,6 @@ import com.example.foodplanner.Models.Meal;
 import java.util.List;
 
 public interface FavoritePresenter {
-    LiveData<List<Meal>> getAllFavMeal();
+    void getAllFavMeal();
     void deleteFromFav(Meal meal);
 }

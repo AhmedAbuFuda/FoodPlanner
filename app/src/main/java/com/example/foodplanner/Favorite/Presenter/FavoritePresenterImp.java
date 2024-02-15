@@ -1,5 +1,7 @@
 package com.example.foodplanner.Favorite.Presenter;
 
+import android.annotation.SuppressLint;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.Favorite.view.FavoriteView;
@@ -7,6 +9,9 @@ import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Repository.MealRepositoryImp;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
 
 public class FavoritePresenterImp implements FavoritePresenter{
     FavoriteView view;
@@ -16,9 +21,13 @@ public class FavoritePresenterImp implements FavoritePresenter{
         this.view = view;
         this.repositoryImp = repositoryImp;
     }
+    @SuppressLint("CheckResult")
     @Override
-    public LiveData<List<Meal>> getAllFavMeal() {
-        return repositoryImp.getFavMeals();
+    public void getAllFavMeal() {
+        Flowable<List<Meal>> flowable = repositoryImp.getFavMeals();
+        flowable.observeOn(AndroidSchedulers.mainThread()).subscribe(meals -> {
+            view.getData(meals);
+        });
     }
 
     @Override

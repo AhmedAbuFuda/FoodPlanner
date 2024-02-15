@@ -9,6 +9,9 @@ import com.example.foodplanner.Models.MealList;
 import com.example.foodplanner.Models.MealListResponse;
 import com.example.foodplanner.Models.MealResponses;
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +28,7 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
     public MealRemoteDataSourceImp() {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .baseUrl(url).build();
         services = retrofit.create(MealServices.class);
     }
@@ -143,9 +147,10 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
     }
 
     @Override
-    public void makeNetworkCall(MealByIdCallBack mealByIdCallBack, String id) {
-        Call<MealResponses> getMeal= services.getMealById(id);
-        getMeal.enqueue(new Callback<MealResponses>() {
+    public Observable<MealResponses> makeNetworkCall( String id) {
+        Observable<MealResponses> getMeal= services.getMealById(id);
+        return  getMeal.subscribeOn(Schedulers.io());
+        /*getMeal.enqueue(new Callback<MealResponses>() {
             @Override
             public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
                 mealByIdCallBack.onSuccessMealById(response.body().meals);
@@ -155,6 +160,6 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
                 mealByIdCallBack.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }
-        });
+        });*/
     }
 }

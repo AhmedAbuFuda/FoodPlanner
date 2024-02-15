@@ -52,7 +52,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView, OnItemCl
         adapter = new FavoriteAdapter(getContext(), this);
         presenter = new FavoritePresenterImp(this, MealRepositoryImp.getInstance(MealRemoteDataSourceImp.getInstance(),
                 MealLocalDataSourceImp.getInstance(getContext())));
-        getData();
+        presenter.getAllFavMeal();
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -60,11 +60,8 @@ public class FavoriteFragment extends Fragment implements FavoriteView, OnItemCl
     }
 
     @Override
-    public void getData() {
-        LiveData<List<Meal>> data = presenter.getAllFavMeal();
-        data.observe(getViewLifecycleOwner(),meals -> {
-            adapter.setDataSource((ArrayList<Meal>) meals);
-        });
+    public void getData(List<Meal> meals) {
+        adapter.setDataSource((ArrayList<Meal>) meals);
     }
 
     @Override
