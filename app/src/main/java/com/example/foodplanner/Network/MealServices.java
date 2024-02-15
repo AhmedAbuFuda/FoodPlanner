@@ -14,13 +14,13 @@ import retrofit2.http.Query;
 
 public interface MealServices {
     @GET("api/json/v1/1/random.php")
-    Call<MealResponses> getMealsByRandom();
+    Observable<MealResponses> getMealsByRandom();
     @GET("api/json/v1/1/categories.php")
-    Call<CategoryResponse> getAllCategories();
+    Observable<CategoryResponse> getAllCategories();
     @GET("api/json/v1/1/list.php?i=list")
-    Call<IngredientResponse> getAllIngredients();
+    Observable<IngredientResponse> getAllIngredients();
     @GET("api/json/v1/1/list.php?a=list")
-    Call<CountryResponse> getAllCountries();
+    Observable<CountryResponse> getAllCountries();
     @GET("api/json/v1/1/filter.php?")
     Observable<MealResponses> getAllMealsByCategory(@Query("c") String category);
     @GET("api/json/v1/1/filter.php?")

@@ -2,6 +2,9 @@ package com.example.foodplanner.Repository;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.foodplanner.Models.CategoryResponse;
+import com.example.foodplanner.Models.CountryResponse;
+import com.example.foodplanner.Models.IngredientResponse;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Models.MealResponses;
 import com.example.foodplanner.Network.FilterCallBack;
@@ -28,6 +31,26 @@ public class MealRepositoryImp implements MealRepository{
             mealRepositoryImp = new MealRepositoryImp(remoteDataSource,localDataSource);
         }
         return mealRepositoryImp;
+    }
+
+    @Override
+    public Observable<MealResponses> getMealRandom() {
+        return remoteDataSource.getRandomMeal();
+    }
+
+    @Override
+    public Observable<CategoryResponse> getCategories() {
+        return remoteDataSource.getAllCategories();
+    }
+
+    @Override
+    public Observable<IngredientResponse> getIngredient() {
+        return remoteDataSource.getAllIngredient();
+    }
+
+    @Override
+    public Observable<CountryResponse> getCountries() {
+        return remoteDataSource.getAllCountries();
     }
 
     @Override

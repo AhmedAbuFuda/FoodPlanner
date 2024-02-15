@@ -42,8 +42,32 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
 
 
     @Override
+    public Observable<MealResponses> getRandomMeal() {
+        Observable<MealResponses> getRandom = services.getMealsByRandom();
+        return getRandom.subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<CategoryResponse> getAllCategories() {
+        Observable<CategoryResponse> getCategories = services.getAllCategories();
+        return getCategories.subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<IngredientResponse> getAllIngredient() {
+        Observable<IngredientResponse> getIngredient = services.getAllIngredients();
+        return getIngredient.subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<CountryResponse> getAllCountries() {
+        Observable<CountryResponse> getCountries = services.getAllCountries();
+        return getCountries.subscribeOn(Schedulers.io());
+    }
+
+    @Override
     public void makeNetworkCall(NetworkCallBack networkCallback) {
-        Call<MealResponses> getRandom = services.getMealsByRandom();
+        /*Call<MealResponses> getRandom = services.getMealsByRandom();
         getRandom.enqueue(new Callback<MealResponses>() {
             @Override
             public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {
@@ -55,9 +79,9 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }
-        });
+        });*/
 
-        Call<CategoryResponse> getCategory = services.getAllCategories();
+        /*Call<CategoryResponse> getCategory = services.getAllCategories();
         getCategory.enqueue(new Callback<CategoryResponse>() {
             @Override
             public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
@@ -69,9 +93,9 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }
-        });
+        });*/
 
-        Call<IngredientResponse> getIngredients = services.getAllIngredients();
+        /*Call<IngredientResponse> getIngredients = services.getAllIngredients();
         getIngredients.enqueue(new Callback<IngredientResponse>() {
             @Override
             public void onResponse(Call<IngredientResponse> call, Response<IngredientResponse> response) {
@@ -84,9 +108,9 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }
-        });
+        });*/
 
-        Call<CountryResponse> getCountries = services.getAllCountries();
+        /*Call<CountryResponse> getCountries = services.getAllCountries();
         getCountries.enqueue(new Callback<CountryResponse>() {
             @Override
             public void onResponse(Call<CountryResponse> call, Response<CountryResponse> response) {
@@ -98,7 +122,7 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
                 networkCallback.onFailure(t.getMessage());
                 Log.i("TAG", "OnFailure: "+t.getMessage());
             }
-        });
+        });*/
 
     }
 
@@ -134,7 +158,7 @@ public class MealRemoteDataSourceImp implements  MealRemoteDataSource {
             });*/
         }else if (c == 'a') {
             Observable<MealResponses> allMealsByArea = services.getAllMealsByArea(name);
-            allMealsByArea.subscribeOn(Schedulers.io());
+            return allMealsByArea.subscribeOn(Schedulers.io());
             /*allMealsByArea.enqueue(new Callback<MealResponses>() {
                 @Override
                 public void onResponse(Call<MealResponses> call, Response<MealResponses> response) {

@@ -39,7 +39,7 @@ public class MealListPresenterImp implements MealListPresenter, FilterCallBack {
         Observable<MealResponses> observable = repositoryImp.getFilteredMeals(name,c);
         observable.observeOn(AndroidSchedulers.mainThread()).subscribe(mealResponses -> {
             view.showMeals(mealResponses.meals);
-        });
+        },err-> view.showErrMsg(err.getMessage()));
     }
 
 }

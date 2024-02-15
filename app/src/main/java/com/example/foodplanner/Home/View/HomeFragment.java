@@ -66,11 +66,15 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         init(view);
         presenter = new HomePresenterImp(this, MealRepositoryImp.getInstance(MealRemoteDataSourceImp.getInstance(),
                 MealLocalDataSourceImp.getInstance(getContext())));
-        presenter.getRandomMeal();
+        //presenter.getRandomMeal();
+        presenter.getMealRandom();
+        presenter.getCategories();
+        presenter.getIngredient();
+        presenter.getCountries();
 
         newMeal.setOnClickListener(v -> {
             favMeal.setClickable(true);
-            presenter.getRandomMeal();
+            presenter.getMealRandom();
         });
 
         favMeal.setOnClickListener(v -> {
