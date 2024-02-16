@@ -118,58 +118,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <View
-            android:id="@+id/divider1"
-            android:layout_width="150dp"
-            android:layout_height="2dp"
-            android:background="@android:color/black" />
-
-        <TextView
-            android:id="@+id/orTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/kanit_bold"
-            android:gravity="center"
-            android:text="OR"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="150dp"
-            android:layout_height="2dp"
-            android:background="@android:color/black" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/usingTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:fontFamily="@font/kanit"
-        android:gravity="center"
-        android:text="@string/signupTitle"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
-    <ImageView
-        android:id="@+id/googleImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        app:srcCompat="@mipmap/google_icon" />
-
 
 </LinearLayout>
 

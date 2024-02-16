@@ -17,17 +17,21 @@ import android.widget.Toast;
 
 import com.example.foodplanner.MasterActivity.MasterActivity;
 import com.example.foodplanner.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpFragment extends Fragment {
     TextInputEditText fullNameFiled, emailFiled, passwordFiled;
     Button signIn;
     ImageView googleSignIn;
     private FirebaseAuth mAuth;
+    String emailRegex = "^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    String passwordRegex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+    Pattern emailPattern , passwordPattern;
+    Matcher emailMatcher, passwoedMatcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,17 +61,26 @@ public class SignUpFragment extends Fragment {
         email = emailFiled.getText().toString();
         password = passwordFiled.getText().toString();
         fullName = fullNameFiled.getText().toString();
-
+        emailMatcher = emailPattern.matcher(email);
+        passwoedMatcher = passwordPattern.matcher(password);
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getContext(), "Please enter the mail", Toast.LENGTH_LONG).show();
+            emailFiled.setError("Please enter the mail");
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getContext(), "Please enter the password", Toast.LENGTH_LONG).show();
+            passwordFiled.setError("Please enter the password");
             return;
         }
         if (TextUtils.isEmpty(fullName)) {
-            Toast.makeText(getContext(), "Please enter the name", Toast.LENGTH_LONG).show();
+            fullNameFiled.setError("Please enter the name");
+            return;
+        }
+        if(!emailMatcher.matches()){
+            emailFiled.setError("Incorrect Email");
+            return;
+        }
+        if(!passwoedMatcher.matches()){
+            passwordFiled.setError("a digit must occur at least once, a lower case letter must occur at least once, an upper case letter must occur at least once, a special character must occur at least once, no whitespace allowed in the entire string, at least 8 characters");
             return;
         }
 
@@ -89,5 +102,7 @@ public class SignUpFragment extends Fragment {
         signIn = view.findViewById(R.id.createAccountBtn);
         googleSignIn = view.findViewById(R.id.googleImage);
         mAuth = FirebaseAuth.getInstance();
+        emailPattern = Pattern.compile(emailRegex);
+        passwordPattern = Pattern.compile(passwordRegex);
     }
 }
