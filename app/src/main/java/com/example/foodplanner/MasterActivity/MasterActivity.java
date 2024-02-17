@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.foodplanner.Account.AccountFragment;
+import com.example.foodplanner.Account.view.AccountFragment;
 import com.example.foodplanner.Favorite.view.FavoriteFragment;
 import com.example.foodplanner.Home.View.HomeFragment;
 import com.example.foodplanner.Plan.view.PlanFragment;

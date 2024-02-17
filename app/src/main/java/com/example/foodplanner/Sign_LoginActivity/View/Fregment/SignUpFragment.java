@@ -1,6 +1,8 @@
 package com.example.foodplanner.Sign_LoginActivity.View.Fregment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,9 @@ import com.example.foodplanner.MasterActivity.MasterActivity;
 import com.example.foodplanner.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,10 +32,12 @@ public class SignUpFragment extends Fragment {
     Button signIn;
     ImageView googleSignIn;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
     String emailRegex = "^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     String passwordRegex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
     Pattern emailPattern , passwordPattern;
     Matcher emailMatcher, passwoedMatcher;
+    public static final String PREFERENCE_FILE = "file";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,9 +92,18 @@ public class SignUpFragment extends Fragment {
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Registration successful!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getContext(), MasterActivity.class);
-                startActivity(intent);
+                HashMap<String,Object> map = new HashMap<>();
+                map.put("email",email);
+                map.put("name",fullName);
+                map.put("profile","https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg");
+                database.getReference().child("users").child(email.replaceAll("[\\.#$\\[\\]]", "")).setValue(map);
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email",email);
+                editor.apply();
+                Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), MasterActivity.class));
+                getActivity().finish();
             } else {
                 Toast.makeText(getContext(), "Registration failed!!" + " Please try again later", Toast.LENGTH_LONG).show();
             }
@@ -102,6 +117,7 @@ public class SignUpFragment extends Fragment {
         signIn = view.findViewById(R.id.createAccountBtn);
         googleSignIn = view.findViewById(R.id.googleImage);
         mAuth = FirebaseAuth.getInstance();
+        database =  FirebaseDatabase.getInstance();
         emailPattern = Pattern.compile(emailRegex);
         passwordPattern = Pattern.compile(passwordRegex);
     }

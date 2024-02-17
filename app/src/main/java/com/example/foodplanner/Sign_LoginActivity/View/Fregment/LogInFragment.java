@@ -1,6 +1,8 @@
 package com.example.foodplanner.Sign_LoginActivity.View.Fregment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class LogInFragment extends Fragment {
@@ -46,6 +49,8 @@ public class LogInFragment extends Fragment {
     FirebaseDatabase database;
     GoogleSignInClient googleSignInClient;
     int RC_SIGN_IN = 20;
+
+    public static final String PREFERENCE_FILE = "file";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,15 +66,24 @@ public class LogInFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        SharedPreferences shared = getContext().getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
+        if (!shared.getString("email", "gust").equals("gust")) {
+            Intent intent = new Intent(view.getContext(), MasterActivity.class);
+            startActivity(intent);
+        }
+
         super.onViewCreated(view, savedInstanceState);
         init(view);
-
-
+        checkBox();
         login.setOnClickListener(v -> {
             loginUser();
         });
         guest.setOnClickListener(v -> {
             Intent intent = new Intent(view.getContext(), MasterActivity.class);
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("email","gust");
+            editor.apply();
             startActivity(intent);
         });
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -81,6 +95,10 @@ public class LogInFragment extends Fragment {
         googleImage.setOnClickListener(v -> {
             googleSignIn();
         });
+
+        googleSignInClient = GoogleSignIn.getClient(getContext(), signInOptions);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+
 
 
     }
@@ -100,9 +118,13 @@ public class LogInFragment extends Fragment {
         }
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Login successful", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getContext(), MasterActivity.class);
-                        startActivity(intent);
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email",email);
+                        editor.apply();
+                        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), MasterActivity.class));
+                        getActivity().finish();
                     } else {
                         Toast.makeText(getContext(), "Login failed", Toast.LENGTH_LONG).show();
                     }
@@ -138,16 +160,31 @@ public class LogInFragment extends Fragment {
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("email",user.getEmail());
                         map.put("name",user.getDisplayName());
-                        map.put("profile",user.getPhotoUrl().toString());
+                        map.put("profile","https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg");
                         database.getReference().child("users").child(user.getEmail().replaceAll("[\\.#$\\[\\]]", "")).setValue(map);
 
-                        Intent intent = new Intent(getContext(),MasterActivity.class);
-                        startActivity(intent);
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email",user.getEmail());
+                        editor.apply();
+                        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), MasterActivity.class));
+                        getActivity().finish();
                     }else {
                         Toast.makeText(getContext(),"Something wrong Try Again",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    private void checkBox() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
+        String check = sharedPreferences.getString("email","");
+        if ((!check.equals("gust"))) {
+            startActivity(new Intent(getContext(), MasterActivity.class));
+            getActivity().finish();
+        }
+    }
+
 
     private void init(View view) {
         guest = view.findViewById(R.id.guestBtn);
@@ -157,6 +194,5 @@ public class LogInFragment extends Fragment {
         googleImage = view.findViewById(R.id.googleImage);
         mAuth = FirebaseAuth.getInstance();
         database =  FirebaseDatabase.getInstance();
-
     }
 }
