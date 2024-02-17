@@ -1,4 +1,4 @@
-package com.example.foodplanner.Sign_LoginActivity.View;
+package com.example.foodplanner.Sign_LoginActivity.View.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.example.foodplanner.Sign_LoginActivity.View.Adapter.FragmentsAdapter;
-import com.example.foodplanner.Sign_LoginActivity.View.Fregment.LogInFragment;
-import com.example.foodplanner.Sign_LoginActivity.View.Fregment.SignUpFragment;
 import com.example.foodplanner.R;
 import com.google.android.material.tabs.TabLayout;
 

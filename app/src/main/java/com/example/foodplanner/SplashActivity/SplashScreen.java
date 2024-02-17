@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.Sign_LoginActivity.View.MainActivity;
+import com.example.foodplanner.Sign_LoginActivity.View.view.MainActivity;
 
 public class SplashScreen extends AppCompatActivity {
 

@@ -7,7 +7,7 @@
     android:background="@color/background"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context=".Sign_LoginActivity.View.MainActivity">
+    tools:context=".Sign_LoginActivity.View.view.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"

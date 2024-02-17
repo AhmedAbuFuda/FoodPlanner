@@ -1,6 +1,7 @@
 package com.example.foodplanner.Favorite.Presenter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -27,7 +28,7 @@ public class FavoritePresenterImp implements FavoritePresenter{
         Flowable<List<Meal>> flowable = repositoryImp.getFavMeals();
         flowable.observeOn(AndroidSchedulers.mainThread()).subscribe(meals -> {
             view.getData(meals);
-        });
+        },err-> Log.i("TAG", "getAllFavMeal: "));
     }
 
     @Override

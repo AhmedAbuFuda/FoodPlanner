@@ -4,6 +4,9 @@ public class IngredientMeasure {
     String strIngredient;
     String strMeasure;
 
+    public IngredientMeasure() {
+    }
+
     public IngredientMeasure(String strIngredient, String strMeasure) {
         this.strIngredient = strIngredient;
         this.strMeasure = strMeasure;

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AccountView {
     void  getAllMeal(List<Meal> meals);
+    void  deleteTable();
 }

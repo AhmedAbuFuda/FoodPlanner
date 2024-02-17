@@ -1,4 +1,4 @@
-package com.example.foodplanner.Sign_LoginActivity.View.Fregment;
+package com.example.foodplanner.Sign_LoginActivity.View.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -95,7 +95,7 @@ public class SignUpFragment extends Fragment {
                 HashMap<String,Object> map = new HashMap<>();
                 map.put("email",email);
                 map.put("name",fullName);
-                map.put("profile","https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg");
+                map.put("profile","https://png.pngtree.com/png-vector/20190329/ourmid/pngtree-vector-avatar-icon-png-image_889567.jpg");
                 database.getReference().child("users").child(email.replaceAll("[\\.#$\\[\\]]", "")).setValue(map);
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -8,6 +8,7 @@ import com.example.foodplanner.Models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -60,5 +61,10 @@ public class MealLocalDataSourceImp implements MealLocalDataSource{
                 dao.deleteMeal(meal);
             }
         }.start();
+    }
+
+    @Override
+    public Completable deleteTable() {
+        return dao.deleteTable().subscribeOn(Schedulers.io());
     }
 }

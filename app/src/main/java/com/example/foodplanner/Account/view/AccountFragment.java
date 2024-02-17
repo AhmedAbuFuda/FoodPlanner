@@ -19,17 +19,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Account.Presenter.AccountPresenter;
 import com.example.foodplanner.Account.Presenter.AccountPresenterImp;
-import com.example.foodplanner.ChooseMeal.Presenter.ChoosePresenter;
-import com.example.foodplanner.ChooseMeal.Presenter.ChoosePresenterImp;
 import com.example.foodplanner.Models.Meal;
 import com.example.foodplanner.Models.SaveMeals;
 import com.example.foodplanner.Network.MealRemoteDataSourceImp;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Repository.MealRepositoryImp;
-import com.example.foodplanner.Sign_LoginActivity.View.MainActivity;
+import com.example.foodplanner.Sign_LoginActivity.View.view.MainActivity;
 import com.example.foodplanner.db.MealLocalDataSourceImp;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,30 +71,19 @@ public class AccountFragment extends Fragment implements AccountView {
 
         SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences(PREFERENCE_FILE, 0);
         String email = sharedPreferences1.getString("email","");
-        databaseReference = database.getReference("SavedMeals").child(email.replaceAll("[\\.#$\\[\\]]", ""));
+
         getUserDetails(email);
 
 
 
         button.setOnClickListener(v -> {
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    databaseReference.setValue(meal);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+            databaseReference = database.getReference("SavedMeals").child(email.replaceAll("[\\.#$\\[\\]]", ""));
+            databaseReference.setValue(meal);
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFERENCE_FILE, 0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("email","gust");
             editor.apply();
-
-            databaseReference = database.getReference("SavedMeals");
-            databaseReference.removeValue();
+            presenter.deleteTable();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
@@ -111,6 +96,11 @@ public class AccountFragment extends Fragment implements AccountView {
         String email = sharedPreferences.getString("email","");
         meal.setEmail(email);
         meal.setMeals((ArrayList<Meal>) meals);
+    }
+
+    @Override
+    public void deleteTable() {
+        Log.i("delete", "deleteTable: Done");
     }
 
     private void init(View view){

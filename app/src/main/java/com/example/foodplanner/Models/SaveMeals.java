@@ -7,6 +7,9 @@ public class SaveMeals implements Serializable {
     String email;
     ArrayList<Meal> meals;
 
+    public SaveMeals() {
+    }
+
     public String getEmail() {
         return email;
     }

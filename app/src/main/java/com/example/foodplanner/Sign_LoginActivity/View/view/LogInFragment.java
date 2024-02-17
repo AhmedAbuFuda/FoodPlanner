@@ -1,4 +1,4 @@
-package com.example.foodplanner.Sign_LoginActivity.View.Fregment;
+package com.example.foodplanner.Sign_LoginActivity.View.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,39 +15,50 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.foodplanner.ChooseMeal.Presenter.ChoosePresenterImp;
 import com.example.foodplanner.MasterActivity.MasterActivity;
+import com.example.foodplanner.Models.Meal;
+import com.example.foodplanner.Models.SaveMeals;
+import com.example.foodplanner.Network.MealRemoteDataSourceImp;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Repository.MealRepositoryImp;
+import com.example.foodplanner.Sign_LoginActivity.View.Presenter.LoginPresenter;
+import com.example.foodplanner.Sign_LoginActivity.View.Presenter.LoginPresenterImp;
+import com.example.foodplanner.db.MealLocalDataSourceImp;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 
-public class LogInFragment extends Fragment {
+public class LogInFragment extends Fragment implements LoginView{
     TextInputEditText emailFiled, passwordFiled;
     Button login, guest;
     ImageView googleImage;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+    DatabaseReference databaseReference;
     GoogleSignInClient googleSignInClient;
+    LoginPresenter presenter;
+    ArrayList<Meal> saveMeals = new ArrayList<>();
     int RC_SIGN_IN = 20;
 
     public static final String PREFERENCE_FILE = "file";
@@ -98,6 +109,8 @@ public class LogInFragment extends Fragment {
 
         googleSignInClient = GoogleSignIn.getClient(getContext(), signInOptions);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences(PREFERENCE_FILE, 0);
+        String email = sharedPreferences1.getString("email","");
 
 
 
@@ -122,6 +135,7 @@ public class LogInFragment extends Fragment {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("email",email);
                         editor.apply();
+                        retrieveData(email);
                         Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getContext(), MasterActivity.class));
                         getActivity().finish();
@@ -160,7 +174,7 @@ public class LogInFragment extends Fragment {
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("email",user.getEmail());
                         map.put("name",user.getDisplayName());
-                        map.put("profile","https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg");
+                        map.put("profile","https://png.pngtree.com/png-vector/20190329/ourmid/pngtree-vector-avatar-icon-png-image_889567.jpg");
                         database.getReference().child("users").child(user.getEmail().replaceAll("[\\.#$\\[\\]]", "")).setValue(map);
 
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
@@ -178,11 +192,42 @@ public class LogInFragment extends Fragment {
 
     private void checkBox() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE,Context.MODE_PRIVATE);
-        String check = sharedPreferences.getString("email","");
+        String check = sharedPreferences.getString("email","gust");
         if ((!check.equals("gust"))) {
             startActivity(new Intent(getContext(), MasterActivity.class));
             getActivity().finish();
         }
+    }
+
+    private void retrieveData(String email){
+        databaseReference = database.getReference("SavedMeals");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if (dataSnapshot.getKey().equals(email.replaceAll("[\\.#$\\[\\]]", ""))){
+
+                        /*saveMeals.add(dataSnapshot.getValue(SaveMeals.class));
+                        Log.i("saved", "onViewCreated: "+saveMeals.size());*/
+
+                        for(DataSnapshot snapshot1: dataSnapshot.child("meals").getChildren()){
+                            //Log.i("saved", "onDataChange: "+snapshot1.getValue());
+                            saveMeals.add(snapshot1.getValue(Meal.class));
+                            insertMeal(snapshot1.getValue(Meal.class));
+                            Log.i("saved", "onViewCreated: "+saveMeals.size());
+                        }
+                        //Log.i("saved", "onDataChange: "+dataSnapshot.child("meals").getValue());
+                        //Log.i("saved", "onDataChange: "+ dataSnapshot.child("meals").getChildren());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -194,5 +239,12 @@ public class LogInFragment extends Fragment {
         googleImage = view.findViewById(R.id.googleImage);
         mAuth = FirebaseAuth.getInstance();
         database =  FirebaseDatabase.getInstance();
+        presenter = new LoginPresenterImp(this, MealRepositoryImp.getInstance(MealRemoteDataSourceImp.getInstance(),
+                MealLocalDataSourceImp.getInstance(getContext())));
+    }
+
+    @Override
+    public void insertMeal(Meal meal) {
+        presenter.insertMeal(meal);
     }
 }

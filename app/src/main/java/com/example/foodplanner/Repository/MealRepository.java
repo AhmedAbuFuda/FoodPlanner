@@ -13,6 +13,7 @@ import com.example.foodplanner.Network.NetworkCallBack;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 
@@ -26,6 +27,7 @@ public interface MealRepository {
     Observable<MealResponses> getMealsById(String id);
     void insert(Meal meal);
     void delete(Meal meal);
+    Completable deleteTable();
     Flowable<List<Meal>> getFavMeals();
     LiveData<List<Meal>> getPlanMeals(String day);
 }

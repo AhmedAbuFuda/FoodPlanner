@@ -15,6 +15,7 @@ import com.example.foodplanner.db.MealLocalDataSource;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 
@@ -76,6 +77,11 @@ public class MealRepositoryImp implements MealRepository{
     @Override
     public void delete(Meal meal) {
         localDataSource.delete(meal);
+    }
+
+    @Override
+    public Completable deleteTable() {
+        return localDataSource.deleteTable();
     }
 
     @Override
