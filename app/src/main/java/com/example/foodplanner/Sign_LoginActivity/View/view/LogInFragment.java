@@ -48,6 +48,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 
 public class LogInFragment extends Fragment implements LoginView{
     TextInputEditText emailFiled, passwordFiled;
@@ -121,12 +123,12 @@ public class LogInFragment extends Fragment implements LoginView{
         email = emailFiled.getText().toString();
         password = passwordFiled.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getContext(), "Please enter the email", Toast.LENGTH_LONG).show();
+            StyleableToast.makeText(getContext(), "Please enter the email", Toast.LENGTH_LONG,R.style.error_toast).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getContext(), "Please enter the password", Toast.LENGTH_LONG).show();
+            StyleableToast.makeText(getContext(), "Please enter the password", Toast.LENGTH_LONG,R.style.error_toast).show();
             return;
         }
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
@@ -136,11 +138,11 @@ public class LogInFragment extends Fragment implements LoginView{
                         editor.putString("email",email);
                         editor.apply();
                         retrieveData(email);
-                        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT,R.style.success_toast).show();
                         startActivity(new Intent(getContext(), MasterActivity.class));
                         getActivity().finish();
                     } else {
-                        Toast.makeText(getContext(), "Login failed", Toast.LENGTH_LONG).show();
+                        StyleableToast.makeText(getContext(), "Login failed", Toast.LENGTH_LONG,R.style.error_toast).show();
                     }
                 });
     }
@@ -185,7 +187,7 @@ public class LogInFragment extends Fragment implements LoginView{
                         startActivity(new Intent(getContext(), MasterActivity.class));
                         getActivity().finish();
                     }else {
-                        Toast.makeText(getContext(),"Something wrong Try Again",Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getContext(),"Something wrong Try Again",Toast.LENGTH_SHORT,R.style.error_toast).show();
                     }
                 });
     }

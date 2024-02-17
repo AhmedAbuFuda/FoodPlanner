@@ -18,6 +18,8 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.Search.view.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 
 public class MasterActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -36,7 +38,7 @@ public class MasterActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.favorite) {
                 if (sharedPreferences1.getString("email", "gust").equals("gust")){
-                    Toast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT,R.style.error_toast).show();
                     return false;
                 }else {
                     changeFragment(new FavoriteFragment());
@@ -47,7 +49,7 @@ public class MasterActivity extends AppCompatActivity {
                 return true;
             }else if (id == R.id.plan) {
                 if (sharedPreferences1.getString("email", "gust").equals("gust")){
-                    Toast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT,R.style.error_toast).show();
                     return false;
                 }else {
                     changeFragment(new PlanFragment());
@@ -55,7 +57,7 @@ public class MasterActivity extends AppCompatActivity {
                 }
             }else if (id == R.id.account) {
                 if (sharedPreferences1.getString("email", "gust").equals("gust")){
-                    Toast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT,R.style.error_toast).show();
                     return false;
                 }else {
                     changeFragment(new AccountFragment());

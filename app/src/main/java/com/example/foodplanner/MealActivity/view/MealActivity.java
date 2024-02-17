@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
@@ -34,6 +36,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import kr.co.prnd.readmore.ReadMoreTextView;
 
 public class MealActivity extends AppCompatActivity implements MealView {
@@ -48,12 +51,14 @@ public class MealActivity extends AppCompatActivity implements MealView {
     private Meal meal;
     String videoId, type, mealId;
     MealPresenter presenter;
+    public static final String PREFERENCE_FILE = "file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
         init();
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
         meal = (Meal) intent.getSerializableExtra("meal");
@@ -86,13 +91,17 @@ public class MealActivity extends AppCompatActivity implements MealView {
 
         calenderImage.setOnClickListener(v -> {
           addToCalendar(meal);
-            Toast.makeText(this,"Add to Calender Successfully",Toast.LENGTH_SHORT).show();
+          StyleableToast.makeText(this,"Add to Calender Successfully",Toast.LENGTH_SHORT,R.style.success_toast).show();
         });
 
         favImage.setOnClickListener(v -> {
-            addMeal(meal);
-            favImage.setClickable(false);
-            Toast.makeText(this,"Add to Favorite Successfully",Toast.LENGTH_SHORT).show();
+            if (sharedPreferences.getString("email", "gust").equals("gust")){
+                StyleableToast.makeText(this,"You can not add to favorite",Toast.LENGTH_SHORT,R.style.error_toast).show();
+            }else {
+                addMeal(meal);
+                favImage.setClickable(false);
+                StyleableToast.makeText(this, "Add to Favorite Successfully", Toast.LENGTH_SHORT, R.style.success_toast).show();
+            }
         });
 
         back.setOnClickListener(v -> {

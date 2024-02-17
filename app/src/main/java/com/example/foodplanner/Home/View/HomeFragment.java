@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,9 @@ import com.example.foodplanner.Repository.MealRepositoryImp;
 import com.example.foodplanner.db.MealLocalDataSourceImp;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import io.github.muddz.styleabletoast.StyleableToast;
 
 
 public class HomeFragment extends Fragment implements HomeMealsView {
@@ -52,6 +56,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     private CountryAdapter countryAdapter;
     LinearLayoutManager linearLayoutManager, linearLayoutManager2, linearLayoutManager3;
     RecyclerView categoryRecyclerView, ingredientRecyclerView, countryRecyclerView;
+    public static final String PREFERENCE_FILE = "file";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +74,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
         presenter = new HomePresenterImp(this, MealRepositoryImp.getInstance(MealRemoteDataSourceImp.getInstance(),
                 MealLocalDataSourceImp.getInstance(getContext())));
         //presenter.getRandomMeal();
@@ -83,9 +89,13 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         });
 
         favMeal.setOnClickListener(v -> {
-            addMeal(randomMeal);
-            favMeal.setClickable(false);
-            Toast.makeText(getContext(),"Add to Favorite Successfully",Toast.LENGTH_SHORT).show();
+            if (sharedPreferences.getString("email", "gust").equals("gust")){
+                StyleableToast.makeText(getContext(),"You can not add to favorite",Toast.LENGTH_SHORT,R.style.error_toast).show();
+            }else {
+                addMeal(randomMeal);
+                favMeal.setClickable(false);
+                StyleableToast.makeText(getContext(), "Add to Favorite Successfully", Toast.LENGTH_SHORT, R.style.success_toast).show();
+            }
         });
 
         mealCard.setOnClickListener(v -> {
@@ -99,7 +109,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     @Override
     public void showMeals(ArrayList<Meal> meals) {
         randomMeal = meals.get(0);
-        Glide.with(getContext()).load(meals.get(0).getStrMealThumb()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher_foreground).into(dailyMealImage);
+        Glide.with(requireContext()).load(meals.get(0).getStrMealThumb()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher_foreground).into(dailyMealImage);
         nameOfDailyMeal.setText(meals.get(0).getStrMeal());
     }
 
@@ -120,7 +130,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
 
     @Override
     public void showErrMsg(String error) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.error_layout, null);
         scrollView.removeAllViews();
         scrollView.addView(view);

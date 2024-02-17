@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class SignUpFragment extends Fragment {
     TextInputEditText fullNameFiled, emailFiled, passwordFiled;
     Button signIn;
@@ -101,11 +103,11 @@ public class SignUpFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("email",email);
                 editor.apply();
-                Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT,R.style.success_toast).show();
                 startActivity(new Intent(getContext(), MasterActivity.class));
                 getActivity().finish();
             } else {
-                Toast.makeText(getContext(), "Registration failed!!" + " Please try again later", Toast.LENGTH_LONG).show();
+                StyleableToast.makeText(getContext(), "Registration failed!!" + " Please try again later", Toast.LENGTH_SHORT,R.style.error_toast).show();
             }
         });
     }
