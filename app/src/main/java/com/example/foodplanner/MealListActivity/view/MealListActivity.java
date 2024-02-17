@@ -3,12 +3,18 @@ package com.example.foodplanner.MealListActivity.view;
 import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,11 +40,14 @@ public class MealListActivity extends AppCompatActivity implements MealListView{
     private TextView nameText;
     private RecyclerView mealRv;
     private ImageView mealImage;
+    ConstraintLayout layout;
     private String type;
     private MealListAdapter adapter;
     GridLayoutManager gridLayoutManager;
     private MealListPresenter presenter;
     private ArrayList<Meal> meals;
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +97,15 @@ public class MealListActivity extends AppCompatActivity implements MealListView{
         back.setOnClickListener(v -> {
             finish();
         });
+
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflater.inflate(R.layout.error_layout, null);
+            layout.removeAllViews();
+            layout.addView(v);
+        }
     }
 
     public void init() {
@@ -96,6 +114,7 @@ public class MealListActivity extends AppCompatActivity implements MealListView{
         nameText = findViewById(R.id.nameText);
         mealImage = findViewById(R.id.typeImage);
         back = findViewById(R.id.backButton);
+        layout = findViewById(R.id.mealListViw);
 
         adapter = new MealListAdapter(this);
         gridLayoutManager = new GridLayoutManager(this,2);

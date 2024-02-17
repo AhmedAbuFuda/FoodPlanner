@@ -1,6 +1,7 @@
 package com.example.foodplanner.Search.view;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.foodplanner.MealListActivity.view.MealListActivity;
 import com.example.foodplanner.Models.Category;
@@ -53,6 +55,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemSearch
     RecyclerView recyclerView;
     ChipGroup chipGroup;
     Chip categoryChip, ingerdientChip, countryChip;
+    LinearLayout linearLayout;
     SearchAdapter adapter;
 
     @Override
@@ -139,7 +142,10 @@ public class SearchFragment extends Fragment implements SearchView, OnItemSearch
 
     @Override
     public void showErrMsg(String error) {
-        Log.i("TAG", "showErrMsg: " + error);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.error_layout, null);
+        linearLayout.removeAllViews();
+        linearLayout.addView(view);
     }
 
     private void init(View view) {
@@ -151,6 +157,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemSearch
         countryChip = view.findViewById(R.id.countryChip);
         recyclerView = view.findViewById(R.id.searchRv);
         area = view.getResources().getStringArray(R.array.area);
+        linearLayout = view.findViewById(R.id.linear_search);
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
         layout.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layout);

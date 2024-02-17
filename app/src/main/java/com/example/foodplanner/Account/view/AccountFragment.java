@@ -1,11 +1,17 @@
 package com.example.foodplanner.Account.view;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -15,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.Account.Presenter.AccountPresenter;
@@ -42,11 +49,14 @@ public class AccountFragment extends Fragment implements AccountView {
     TextInputEditText emailField;
     ImageView userProfile;
     Button button;
+    ConstraintLayout layout;
     AccountPresenter presenter;
     public static final String PREFERENCE_FILE = "file";
     FirebaseDatabase database;
     DatabaseReference databaseReference;
     SaveMeals meal = new SaveMeals();
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +66,7 @@ public class AccountFragment extends Fragment implements AccountView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+            return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
     @Override
@@ -70,7 +79,7 @@ public class AccountFragment extends Fragment implements AccountView {
         presenter.getAllFavMeal();
 
         SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences(PREFERENCE_FILE, 0);
-        String email = sharedPreferences1.getString("email","");
+        String email = sharedPreferences1.getString("email","gust");
 
         getUserDetails(email);
 
@@ -88,6 +97,15 @@ public class AccountFragment extends Fragment implements AccountView {
             startActivity(intent);
             getActivity().finish();
         });
+
+        connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflater.inflate(R.layout.error_layout, null);
+            layout.removeAllViews();
+            layout.addView(v);
+        }
     }
 
     @Override
@@ -109,6 +127,7 @@ public class AccountFragment extends Fragment implements AccountView {
         username = view.findViewById(R.id.username);
         emailField = view.findViewById(R.id.useremail);
         userProfile = view.findViewById(R.id.profile_image);
+        layout = view.findViewById(R.id.accountview);
     }
 
     void getUserDetails(String email){
@@ -135,7 +154,7 @@ public class AccountFragment extends Fragment implements AccountView {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(),"error",Toast.LENGTH_SHORT).show();
             }
         });
     }

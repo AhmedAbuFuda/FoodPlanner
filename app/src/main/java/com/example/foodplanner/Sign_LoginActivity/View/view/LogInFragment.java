@@ -90,11 +90,11 @@ public class LogInFragment extends Fragment implements LoginView{
             loginUser();
         });
         guest.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), MasterActivity.class);
             SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("email","gust");
             editor.apply();
+            Intent intent = new Intent(view.getContext(), MasterActivity.class);
             startActivity(intent);
         });
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

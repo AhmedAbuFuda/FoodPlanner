@@ -219,7 +219,7 @@ public class PlanFragment extends Fragment implements PlanView,OnPlanCardClicked
     @Override
     public void onClickDayCard(Meal meal) {
         Intent intent = new Intent(getContext(), MealActivity.class);
-        intent.putExtra("id", meal.getIdMeal());
+        intent.putExtra("meal", meal);
         startActivity(intent);
     }
 }

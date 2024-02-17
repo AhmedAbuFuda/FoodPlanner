@@ -77,7 +77,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView, OnItemCl
     @Override
     public void onItemClick(Meal meal) {
         Intent intent = new Intent(getContext(), MealActivity.class);
-        intent.putExtra("id", meal.getIdMeal());
+        intent.putExtra("meal", meal);
         startActivity(intent);
     }
 }

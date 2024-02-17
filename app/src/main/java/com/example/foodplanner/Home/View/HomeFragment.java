@@ -1,5 +1,8 @@
 package com.example.foodplanner.Home.View;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +44,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
     ImageButton newMeal, favMeal;
     TextView nameOfDailyMeal;
     CardView mealCard;
+    ScrollView scrollView;
     private Meal randomMeal;
     HomePresenter presenter;
     private CategoryAdapter categoryAdapter;
@@ -115,7 +120,10 @@ public class HomeFragment extends Fragment implements HomeMealsView {
 
     @Override
     public void showErrMsg(String error) {
-        Log.i("TAG", "showErrMsg: "+error);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.error_layout, null);
+        scrollView.removeAllViews();
+        scrollView.addView(view);
     }
 
     @Override
@@ -132,6 +140,7 @@ public class HomeFragment extends Fragment implements HomeMealsView {
         countryRecyclerView = view.findViewById(R.id.areaRV);
         mealCard = view.findViewById(R.id.cardView);
         favMeal = view.findViewById(R.id.fav);
+        scrollView = view.findViewById(R.id.homeview);
 
         categoryAdapter = new CategoryAdapter(getContext());
         ingredientAdapter = new IngredientAdapter(getContext());

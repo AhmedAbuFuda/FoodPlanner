@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.foodplanner.Account.view.AccountFragment;
 import com.example.foodplanner.Favorite.view.FavoriteFragment;
@@ -15,13 +18,16 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.Search.view.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
 public class MasterActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    public static final String PREFERENCE_FILE = "file";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
         init();
+        SharedPreferences sharedPreferences1 = getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
         changeFragment(new HomeFragment());
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -29,17 +35,32 @@ public class MasterActivity extends AppCompatActivity {
                 changeFragment(new HomeFragment());
                 return true;
             } else if (id == R.id.favorite) {
-                changeFragment(new FavoriteFragment());
-                return true;
+                if (sharedPreferences1.getString("email", "gust").equals("gust")){
+                    Toast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT).show();
+                    return false;
+                }else {
+                    changeFragment(new FavoriteFragment());
+                    return true;
+                }
             }else if (id == R.id.search) {
                 changeFragment(new SearchFragment());
                 return true;
             }else if (id == R.id.plan) {
-                changeFragment(new PlanFragment());
-                return true;
+                if (sharedPreferences1.getString("email", "gust").equals("gust")){
+                    Toast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT).show();
+                    return false;
+                }else {
+                    changeFragment(new PlanFragment());
+                    return true;
+                }
             }else if (id == R.id.account) {
-                changeFragment(new AccountFragment());
-                return true;
+                if (sharedPreferences1.getString("email", "gust").equals("gust")){
+                    Toast.makeText(this, "You must log in to enjoy this feature", Toast.LENGTH_SHORT).show();
+                    return false;
+                }else {
+                    changeFragment(new AccountFragment());
+                    return true;
+                }
             }
             return false;
         });
