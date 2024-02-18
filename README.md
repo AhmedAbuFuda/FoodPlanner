@@ -37,7 +37,7 @@ Welcome to Food Planner, a feature-rich meal inspiration app that allows users t
 We welcome contributions to this project! Please create pull requests with clear descriptions and well-tested code.
 
 # Screenshot 
-![Screenshot_2024-02-18-11-13-47-240_com example foodplanner](https://github.com/AhmedAbuFuda/FoodPlanner/assets/64929433/10ff216f-00b4-4ef9-8285-b3ea6da41182)
+![Screenshot_2024-02-18-11-13-47-240_com example foodplanner](https://github.com/AhmedAbuFuda/FoodPlanner/assets/64929433/10ff216f-00b4-4ef9-8285-b3ea6da41182.png)
 ![Screenshot_2024-02-18-11-16-13-038_com example foodplanner](https://github.com/AhmedAbuFuda/FoodPlanner/assets/64929433/fd82b6c6-f474-47c9-9935-2435e551b3d5)
 ![Screenshot_2024-02-18-11-16-15-643_com example foodplanner](https://github.com/AhmedAbuFuda/FoodPlanner/assets/64929433/3e262772-87d0-41a8-844b-188d70495e5b)
 ![Screenshot_2024-02-18-11-14-06-416_com example foodplanner](https://github.com/AhmedAbuFuda/FoodPlanner/assets/64929433/7f979b4f-d3aa-428b-a155-2589d2c6fa39)
